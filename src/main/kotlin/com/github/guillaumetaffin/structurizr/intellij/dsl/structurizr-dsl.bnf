@@ -40,6 +40,8 @@
     CONFIGURATION="configuration"
     TAGS="tags"
     URL="url"
+    PERSPECTIVES="perspectives"
+    RELATION_ARROW="->"
 
     EQ="="
 
@@ -80,6 +82,8 @@ private workspace_block_statements ::= name_statement
  adrs_statement ::= '!adrs' any_text any_text? LINE_BREAK+
  tags_statement ::= 'tags' any_text+ LINE_BREAK+
  url_statement ::= 'url' any_text LINE_BREAK+
+ perspectives_statement ::= "perspectives" opening_block perspective_statement* closing_block
+ perspective_statement ::= any_text any_text any_text? LINE_BREAK+
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
@@ -96,6 +100,8 @@ person_block ::= opening_block person_block_statement* closing_block
 private person_block_statement ::= description_statement
  | tags_statement
  | url_statement
+ | properties_statement
+ | perspectives_statement
 
 software_system_statement ::= <<taggable_element_definition "softwareSystem" >> (software_system_block | LINE_BREAK+)
 software_system_block ::= opening_block software_system_block_statement* closing_block
@@ -110,7 +116,7 @@ private container_block_statement ::= component_statement
 component_statement ::= <<tech_taggable_element_definition "component" >> (component_block | LINE_BREAK+)
 private component_block ::= opening_block closing_block
 
-id ::= UNQUOTED_TEXT | any_keyword
+id ::= any_text
 private any_text ::= UNQUOTED_TEXT | QUOTED_TEXT| any_keyword
 private any_keyword ::= "workspace"
  | "model"
@@ -131,6 +137,7 @@ private any_keyword ::= "workspace"
  | "views"
  | "tags"
  | "url"
+ | "perspectives"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

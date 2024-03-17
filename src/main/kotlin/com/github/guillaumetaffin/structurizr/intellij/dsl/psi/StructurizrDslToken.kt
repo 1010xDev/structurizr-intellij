@@ -30,6 +30,8 @@ class Views : StructurizrKeyword("views")
 class Configuration : StructurizrKeyword("configuration")
 class Tags : StructurizrKeyword("tags")
 class Url : StructurizrKeyword("url")
+class Perspectives : StructurizrKeyword("perspectives")
+class RelationArrow : StructurizrKeyword("->")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -104,6 +106,12 @@ data object Tokens {
 
     @JvmField
     val URL = Url()
+
+    @JvmField
+    val PERSPECTIVES = Perspectives()
+
+    @JvmField
+    val RELATION_ARROW = RelationArrow()
 
     @JvmField
     val EQ = Equal()
