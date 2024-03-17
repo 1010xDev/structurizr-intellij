@@ -49,6 +49,7 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "->"                         { return Tokens.RELATION_ARROW; }
   "this"                       { return Tokens.THIS; }
   "technology"                 { return Tokens.TECHNOLOGY; }
+  "element"                    { return Tokens.ELEMENT; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

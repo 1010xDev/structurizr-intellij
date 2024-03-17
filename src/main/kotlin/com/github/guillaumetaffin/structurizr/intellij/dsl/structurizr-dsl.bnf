@@ -44,6 +44,7 @@
     RELATION_ARROW="->"
     THIS="this"
     TECHNOLOGY="technology"
+    ELEMENT="element"
 
     EQ="="
 
@@ -93,6 +94,16 @@ private model_block_statement ::= person_statement
  | software_system_statement
  | identifiers_statement
  | <<group_statements model_block_statement>>
+ | element_statement
+
+element_statement ::= 'element' a_name any_text? a_description? tag? (element_block | LINE_BREAK+)
+element_block ::= opening_block element_block_statement* closing_block
+element_block_statement ::= description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
 
 views_statement ::= "views" opening_block closing_block
 
@@ -176,6 +187,7 @@ private any_keyword ::= "workspace"
  | "perspectives"
  | "this"
  | "technology"
+ | "element"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
