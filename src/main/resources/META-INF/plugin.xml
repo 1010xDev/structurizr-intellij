@@ -1,18 +1,9 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.guillaumetaffin.structurizrintellij</id>
-    <name>structurizr-intellij</name>
-    <vendor>guillaumetaffin</vendor>
+    <id>com.github.guillaumetaffin.structurizr.intellij</id>
+    <name>Structurizr DSL</name>
+    <vendor>Guillaume Taffin</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
-    <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.guillaumetaffin.structurizrintellij.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-    </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.guillaumetaffin.structurizrintellij.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>
