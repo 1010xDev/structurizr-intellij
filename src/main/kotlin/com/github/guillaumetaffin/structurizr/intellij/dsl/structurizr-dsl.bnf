@@ -21,10 +21,18 @@
 
   tokens = [
     WORKSPACE="workspace"
+    MODEL="model"
+    PERSON="person"
+
+    EQ="="
+
     OPEN_PARENS="{"
     CLOSE_PARENS="}"
 
-    LINE_BREAK="regexp:[\n\r]+"
+    QUOTED_TEXT='regexp:\"[^\"\r\n]*\"?'
+    UNQUOTED_TEXT='regexp:[^\s\"\r\n]+'
+
+    LINE_BREAK="regexp:[\n\r]"
     WHITE_SPACE="regexp:[ \t\f]+"
     space="regexp:[ \t\f]+"
   ]
@@ -34,10 +42,17 @@ structurizrFile ::= top_level_statements*
 
 private top_level_statements ::= workspace_statement
 
-workspace_statement ::= workspace_definition opening_block workspace_block  closing_block
+workspace_statement ::= workspace_definition opening_block workspace_block_statements  closing_block
 workspace_definition ::= WORKSPACE
-workspace_block ::= (workspace_block_statements  LINE_BREAK)?
-workspace_block_statements ::= WHITE_SPACE*
+workspace_block_statements ::= model_statement?
+
+model_statement ::= "model" opening_block model_block_statement* closing_block
+model_block_statement ::= person_statement
+
+person_statement ::= (id "=")? "person" any_text LINE_BREAK+
+
+id ::= UNQUOTED_TEXT
+any_text ::= UNQUOTED_TEXT | QUOTED_TEXT
 
 opening_block ::= "{" LINE_BREAK+
-closing_block ::= "}" (LINE_BREAK | <<eof>>)
+closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

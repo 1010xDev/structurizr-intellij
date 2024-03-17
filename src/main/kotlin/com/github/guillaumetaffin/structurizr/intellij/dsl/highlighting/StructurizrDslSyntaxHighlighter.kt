@@ -1,10 +1,7 @@
 package com.github.guillaumetaffin.intellij.matlab.language.highlighting
 
 import com.github.guillaumetaffin.structurizr.intellij.dsl.StructurizrDslLexerAdapter
-import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.LineBreak
-import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslToken
-import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrKeyword
-import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrParens
+import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.*
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
@@ -22,6 +19,8 @@ class StructurizrDslSyntaxHighlighter : SyntaxHighlighterBase() {
         is StructurizrDslToken -> when (tokenType) {
             is StructurizrKeyword -> AttributeKeys.KEYWORD
             is StructurizrParens -> AttributeKeys.PARENS
+            is StructurizrOperator -> AttributeKeys.OPERATOR
+            is StructurizrText -> AttributeKeys.STRING
             is LineBreak -> AttributeKeys.NO_HIGHLIGHTING
         }
 
