@@ -20,16 +20,19 @@ import static com.intellij.psi.TokenType.WHITE_SPACE;
 HORIZONTAL_WHITESPACE=[ \t\f]+
 LINE_BREAK=[\n\r]
 
-QUOTED_TEXT=\" [^\"\r\n]* \"?
-UNQUOTED_TEXT=[^\s\"\r\n]+
-
-%state WAITING_VALUE
+QUOTED_TEXT=\"[^\"\r\n]*\"?
+UNQUOTED_TEXT=[^\s\"\r\n\{]+
 
 %%
 <YYINITIAL> {
+  "extends"                    { return Tokens.EXTENDS; }
   "workspace"                  { return Tokens.WORKSPACE; }
   "model"                      { return Tokens.MODEL; }
   "person"                     { return Tokens.PERSON; }
+  "softwareSystem"             { return Tokens.SOFTWARE_SYSTEM; }
+  "container"                  { return Tokens.CONTAINER; }
+  "component"                  { return Tokens.COMPONENT; }
+  "group"                      { return Tokens.GROUP; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

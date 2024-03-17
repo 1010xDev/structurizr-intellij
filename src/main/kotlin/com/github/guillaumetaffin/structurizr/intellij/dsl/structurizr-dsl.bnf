@@ -20,9 +20,14 @@
     generateTokens=false
 
   tokens = [
+    EXTENDS="extends"
     WORKSPACE="workspace"
     MODEL="model"
     PERSON="person"
+    SOFTWARE_SYSTEM="softwareSystem"
+    CONTAINER="container"
+    COMPONENT="component"
+    GROUP="group"
 
     EQ="="
 
@@ -30,7 +35,7 @@
     CLOSE_PARENS="}"
 
     QUOTED_TEXT='regexp:\"[^\"\r\n]*\"?'
-    UNQUOTED_TEXT='regexp:[^\s\"\r\n]+'
+    UNQUOTED_TEXT='regexp:[^\s\"\r\n{]+'
 
     LINE_BREAK="regexp:[\n\r]"
     WHITE_SPACE="regexp:[ \t\f]+"
@@ -43,16 +48,51 @@ structurizrFile ::= top_level_statements*
 private top_level_statements ::= workspace_statement
 
 workspace_statement ::= workspace_definition opening_block workspace_block_statements  closing_block
-workspace_definition ::= WORKSPACE
-workspace_block_statements ::= model_statement?
+workspace_definition ::= WORKSPACE ( a_name description? | "extends" uri )?
+private workspace_block_statements ::= model_statement?
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
-model_block_statement ::= person_statement
+private model_block_statement ::= person_statement
+ | software_system_statement
+ | <<group_statements model_block_statement>>
 
-person_statement ::= (id "=")? "person" any_text LINE_BREAK+
+person_statement ::= <<taggable_element_definition "person">> LINE_BREAK+
 
-id ::= UNQUOTED_TEXT
-any_text ::= UNQUOTED_TEXT | QUOTED_TEXT
+software_system_statement ::= <<taggable_element_definition "softwareSystem" >> (software_system_block | LINE_BREAK+)
+private software_system_block ::= opening_block software_system_block_statement* closing_block
+private software_system_block_statement ::= container_statement
+ | <<group_statements software_system_block_statement>>
+
+container_statement ::= <<tech_taggable_element_definition "container" >> (container_block | LINE_BREAK+)
+private container_block ::= opening_block container_block_statement* closing_block
+private container_block_statement ::= component_statement
+ | <<group_statements container_block_statement>>
+
+component_statement ::= <<tech_taggable_element_definition "component" >> (component_block | LINE_BREAK+)
+private component_block ::= opening_block closing_block
+
+id ::= UNQUOTED_TEXT | any_keyword
+private any_text ::= UNQUOTED_TEXT | QUOTED_TEXT| any_keyword
+private any_keyword ::= "workspace"
+ | "model"
+ | "softwareSystem"
+ | "person"
+ | "container"
+ | "component"
+ | "group"
+ | "extends"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
+
+a_name ::= any_text
+description ::= any_text
+uri ::= any_text
+tag ::= any_text
+technology ::= any_text
+
+// META RULES
+private meta taggable_element_definition ::= (id "=")? <<keyword>> a_name description? tag?
+private meta tech_taggable_element_definition ::= (id "=")? <<keyword>> a_name description? technology? tag?
+
+meta group_statements ::= "group" any_text opening_block <<level_statements>>* closing_block
