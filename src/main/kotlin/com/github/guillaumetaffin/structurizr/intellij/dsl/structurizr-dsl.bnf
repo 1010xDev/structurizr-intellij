@@ -1,0 +1,43 @@
+{
+  parserClass="com.github.guillaumetaffin.structurizr.intellij.dsl.parser.StructurizrDslParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="StructurizrDsl"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.guillaumetaffin.structurizr.intellij.dsl.psi"
+  psiImplPackage="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.impl"
+
+  elementTypeHolderClass="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslTypes"
+  elementTypeClass="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslElementType"
+  tokenTypeClass="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslToken"
+
+  parserImports=[
+      "static com.github.guillaumetaffin.structurizr.intellij.dsl.psi.Tokens.*"
+      "import static com.intellij.psi.TokenType.WHITE_SPACE;"
+    ]
+
+    generateTokens=false
+
+  tokens = [
+    WORKSPACE="workspace"
+    OPEN_PARENS="{"
+    CLOSE_PARENS="}"
+
+    LINE_BREAK="regexp:[\n\r]+"
+    WHITE_SPACE="regexp:[ \t\f]+"
+    space="regexp:[ \t\f]+"
+  ]
+}
+
+structurizrFile ::= top_level_statements*
+
+private top_level_statements ::= workspace_statement
+
+workspace_statement ::= workspace_definition opening_block workspace_block  closing_block
+workspace_definition ::= WORKSPACE
+workspace_block ::= (workspace_block_statements  LINE_BREAK)?
+workspace_block_statements ::= WHITE_SPACE*
+
+opening_block ::= "{" LINE_BREAK+
+closing_block ::= "}" (LINE_BREAK | <<eof>>)

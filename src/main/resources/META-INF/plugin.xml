@@ -6,4 +6,22 @@
 
     <depends>com.intellij.modules.platform</depends>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Structurizr DSL File"
+                  implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.StructurizrDslFileType"
+                  fieldName="INSTANCE"
+                  language="StructurizrDsl"
+                  extensions="dsl"
+        />
+
+        <lang.parserDefinition language="StructurizrDsl"
+        implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.StructurizrDslParserDefinition"
+        />
+
+        <lang.syntaxHighlighterFactory
+        language="StructurizrDsl"
+        implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.highlighting.StructurizrDslSyntaxHighlighterFactory"
+        />
+    </extensions>
+
 </idea-plugin>
