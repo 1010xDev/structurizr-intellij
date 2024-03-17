@@ -147,7 +147,7 @@ private component_block_statement ::= docs_statement
  | relation_statement
 
 relation_statement ::= lhs_relation_statement '->' rhs_relation_statement (relation_block | LINE_BREAK+)
-rhs_relation_statement ::= ('this' | id) a_description? technology? tag?
+rhs_relation_statement ::= ('this' | id) a_description? any_text? tag?
 lhs_relation_statement ::= ('this' | id) ?
 relation_block ::= opening_block relation_block_statements closing_block
 private relation_block_statements ::= tags_statement | url_statement | properties_statement | perspective_statement
@@ -183,10 +183,9 @@ closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
 a_name ::= any_text
 a_description ::= any_text
 tag ::= any_text
-technology ::= any_text
 
 // META RULES
 private meta taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? tag?
-private meta tech_taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? technology? tag?
+private meta tech_taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? any_text? tag?
 
 meta group_statements ::= "group" any_text opening_block <<level_statements>>* closing_block
