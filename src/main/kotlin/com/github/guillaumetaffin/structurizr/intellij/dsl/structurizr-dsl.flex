@@ -41,6 +41,8 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "flat"                       { return Tokens.FLAT; }
   "!docs"                      { return Tokens.DOCS; }
   "!adrs"                      { return Tokens.ADRS; }
+  "views"                      { return Tokens.VIEWS; }
+  "configuration"              { return Tokens.CONFIGURATION; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }
