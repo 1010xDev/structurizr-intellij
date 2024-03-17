@@ -1,4 +1,4 @@
-package com.github.guillaumetaffin.intellij.matlab.language.highlighting
+package com.github.guillaumetaffin.structurizr.intellij.dsl.highlighting
 
 import com.github.guillaumetaffin.structurizr.intellij.dsl.StructurizrDslLexerAdapter
 import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.*
