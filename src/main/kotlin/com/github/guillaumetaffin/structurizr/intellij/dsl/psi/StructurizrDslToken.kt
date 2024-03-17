@@ -24,6 +24,8 @@ class Properties : StructurizrKeyword("properties")
 class Identifiers : StructurizrKeyword("!identifiers")
 class Hierarchical : StructurizrKeyword("hierarchical")
 class Flat : StructurizrKeyword("flat")
+class Docs : StructurizrKeyword("!docs")
+class Adrs : StructurizrKeyword("!adrs")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -80,6 +82,12 @@ data object Tokens {
 
     @JvmField
     val FLAT = Flat()
+
+    @JvmField
+    val DOCS = Docs()
+
+    @JvmField
+    val ADRS = Adrs()
 
     @JvmField
     val EQ = Equal()

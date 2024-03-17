@@ -39,6 +39,8 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "!identifiers"               { return Tokens.IDENTIFIERS; }
   "hierarchical"               { return Tokens.HIERARCHICAL; }
   "flat"                       { return Tokens.FLAT; }
+  "!docs"                      { return Tokens.DOCS; }
+  "!adrs"                      { return Tokens.ADRS; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

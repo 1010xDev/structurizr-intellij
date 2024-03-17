@@ -34,6 +34,8 @@
     IDENTIFIERS="!identifiers"
     HIERARCHICAL="hierarchical"
     FLAT="flat"
+    DOCS="!docs"
+    ADRS="!adrs"
 
     EQ="="
 
@@ -59,6 +61,8 @@ private workspace_block_statements ::= name_statement
  | description_statement
  | properties_statement
  | identifiers_statement
+ | docs_statement
+ | adrs_statement
  | model_statement
 
  name_statement ::= "name" "=" any_text LINE_BREAK+
@@ -66,6 +70,8 @@ private workspace_block_statements ::= name_statement
  properties_statement ::= "properties" opening_block property_statement* closing_block
  property_statement ::= any_text any_text LINE_BREAK+
  identifiers_statement ::= "!identifiers" ("hierarchical" | "flat") LINE_BREAK+
+ docs_statement ::= '!docs' any_text any_text? LINE_BREAK+
+ adrs_statement ::= '!adrs' any_text any_text? LINE_BREAK+
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
@@ -103,6 +109,8 @@ private any_keyword ::= "workspace"
  | "!identifiers"
  | "hierarchical"
  | "flat"
+ | "!docs"
+ | "!adrs"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
