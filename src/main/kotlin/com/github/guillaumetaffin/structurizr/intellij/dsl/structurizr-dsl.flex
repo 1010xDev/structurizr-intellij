@@ -53,6 +53,7 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "deploymentEnvironment"      { return Tokens.DEPLOYMENT_ENVIRONMENT; }
   "deploymentGroup"            { return Tokens.DEPLOYMENT_GROUP; }
   "deploymentNode"             { return Tokens.DEPLOYMENT_NODE; }
+  "instances"                  { return Tokens.INSTANCES; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }
