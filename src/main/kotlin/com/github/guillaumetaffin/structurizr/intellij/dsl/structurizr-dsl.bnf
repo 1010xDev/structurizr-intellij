@@ -43,6 +43,7 @@
     PERSPECTIVES="perspectives"
     RELATION_ARROW="->"
     THIS="this"
+    TECHNOLOGY="technology"
 
     EQ="="
 
@@ -85,6 +86,7 @@ private workspace_block_statements ::= name_statement
  url_statement ::= 'url' any_text LINE_BREAK+
  perspectives_statement ::= "perspectives" opening_block perspective_statement* closing_block
  perspective_statement ::= any_text any_text any_text? LINE_BREAK+
+ technology_statement ::= 'technology' any_text LINE_BREAK+
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
@@ -108,18 +110,44 @@ private person_block_statement ::= description_statement
 software_system_statement ::= <<taggable_element_definition "softwareSystem" >> (software_system_block | LINE_BREAK+)
 software_system_block ::= opening_block software_system_block_statement* closing_block
 private software_system_block_statement ::= container_statement
+ | docs_statement
+ | adrs_statement
  | <<group_statements software_system_block_statement>>
+ | description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
 
 container_statement ::= <<tech_taggable_element_definition "container" >> (container_block | LINE_BREAK+)
-private container_block ::= opening_block container_block_statement* closing_block
+container_block ::= opening_block container_block_statement* closing_block
 private container_block_statement ::= component_statement
+ | docs_statement
+ | adrs_statement
  | <<group_statements container_block_statement>>
+ | description_statement
+ | technology_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
 
 component_statement ::= <<tech_taggable_element_definition "component" >> (component_block | LINE_BREAK+)
-private component_block ::= opening_block closing_block
+component_block ::= opening_block component_block_statement*  closing_block
+private component_block_statement ::= docs_statement
+ | adrs_statement
+ | description_statement
+ | technology_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
 
 relation_statement ::= lhs_relation_statement '->' rhs_relation_statement (relation_block | LINE_BREAK+)
-rhs_relation_statement ::= id a_description? technology? tag?
+rhs_relation_statement ::= ('this' | id) a_description? technology? tag?
 lhs_relation_statement ::= ('this' | id) ?
 relation_block ::= opening_block relation_block_statements closing_block
 private relation_block_statements ::= tags_statement | url_statement | properties_statement | perspective_statement
@@ -146,6 +174,8 @@ private any_keyword ::= "workspace"
  | "tags"
  | "url"
  | "perspectives"
+ | "this"
+ | "technology"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

@@ -33,6 +33,7 @@ class Url : StructurizrKeyword("url")
 class Perspectives : StructurizrKeyword("perspectives")
 class RelationArrow : StructurizrKeyword("->")
 class This : StructurizrKeyword("this")
+class Technology : StructurizrKeyword("technology")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -116,6 +117,9 @@ data object Tokens {
 
     @JvmField
     val THIS = This()
+
+    @JvmField
+    val TECHNOLOGY = Technology()
 
     @JvmField
     val EQ = Equal()

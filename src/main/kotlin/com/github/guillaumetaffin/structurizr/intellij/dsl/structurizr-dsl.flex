@@ -48,6 +48,7 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "perspectives"               { return Tokens.PERSPECTIVES; }
   "->"                         { return Tokens.RELATION_ARROW; }
   "this"                       { return Tokens.THIS; }
+  "technology"                 { return Tokens.TECHNOLOGY; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }
