@@ -173,10 +173,6 @@ health_check_statement ::= 'healthCheck' a_name any_text any_text? any_text?
 
 instances_statement ::= 'instances' any_text LINE_BREAK+
 
-views_statement ::= "views" opening_block closing_block
-
-configuration_statement ::= "configuration" opening_block closing_block
-
 person_statement ::= <<taggable_element_definition "person">> (person_block | LINE_BREAK+)
 person_block ::= opening_block person_block_statement* closing_block
 private person_block_statement ::= description_statement
@@ -230,6 +226,10 @@ rhs_relation_statement ::= ('this' | id) a_description? any_text? tag?
 lhs_relation_statement ::= ('this' | id) ?
 relation_block ::= opening_block relation_block_statements closing_block
 private relation_block_statements ::= tags_statement | url_statement | properties_statement | perspective_statement
+
+views_statement ::= "views" opening_block closing_block
+
+configuration_statement ::= "configuration" opening_block closing_block
 
 id ::= any_text
 private any_text ::= UNQUOTED_TEXT | QUOTED_TEXT| any_keyword
