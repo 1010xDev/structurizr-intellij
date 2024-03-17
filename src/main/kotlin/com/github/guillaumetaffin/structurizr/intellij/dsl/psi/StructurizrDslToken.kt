@@ -18,6 +18,9 @@ class SoftwareSystem : StructurizrKeyword("softwareSystem")
 class Container : StructurizrKeyword("container")
 class Component : StructurizrKeyword("component")
 class Group : StructurizrKeyword("group")
+class Name : StructurizrKeyword("name")
+class Description : StructurizrKeyword("description")
+class Properties : StructurizrKeyword("properties")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -56,6 +59,15 @@ data object Tokens {
 
     @JvmField
     val GROUP = Group()
+
+    @JvmField
+    val NAME = Name()
+
+    @JvmField
+    val DESCRIPTION = Description()
+
+    @JvmField
+    val PROPERTIES = Description()
 
     @JvmField
     val EQ = Equal()

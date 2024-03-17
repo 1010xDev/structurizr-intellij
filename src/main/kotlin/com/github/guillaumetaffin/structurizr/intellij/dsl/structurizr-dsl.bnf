@@ -28,6 +28,9 @@
     CONTAINER="container"
     COMPONENT="component"
     GROUP="group"
+    NAME="name"
+    DESCRIPTION="description"
+    PROPERTIES="properties"
 
     EQ="="
 
@@ -35,7 +38,7 @@
     CLOSE_PARENS="}"
 
     QUOTED_TEXT='regexp:\"[^\"\r\n]*\"?'
-    UNQUOTED_TEXT='regexp:[^\s\"\r\n{]+'
+    UNQUOTED_TEXT='regexp:[^\s\"\r\n{=]+'
 
     LINE_BREAK="regexp:[\n\r]"
     WHITE_SPACE="regexp:[ \t\f]+"
@@ -47,9 +50,17 @@ structurizrFile ::= top_level_statements*
 
 private top_level_statements ::= workspace_statement
 
-workspace_statement ::= workspace_definition opening_block workspace_block_statements  closing_block
-workspace_definition ::= WORKSPACE ( a_name description? | "extends" uri )?
-private workspace_block_statements ::= model_statement?
+workspace_statement ::= workspace_definition opening_block workspace_block_statements*  closing_block
+workspace_definition ::= WORKSPACE ( a_name a_description? | "extends" uri )?
+private workspace_block_statements ::= name_statement
+ | description_statement
+ | properties_statement
+ | model_statement
+
+ name_statement ::= "name" "=" any_text LINE_BREAK+
+ description_statement ::= "description" "=" any_text LINE_BREAK+
+ properties_statement ::= "properties" opening_block property_statement* closing_block
+ property_statement ::= any_text any_text LINE_BREAK+
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
@@ -81,18 +92,21 @@ private any_keyword ::= "workspace"
  | "component"
  | "group"
  | "extends"
+ | "name"
+ | "description"
+ | "properties"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
 
 a_name ::= any_text
-description ::= any_text
+a_description ::= any_text
 uri ::= any_text
 tag ::= any_text
 technology ::= any_text
 
 // META RULES
-private meta taggable_element_definition ::= (id "=")? <<keyword>> a_name description? tag?
-private meta tech_taggable_element_definition ::= (id "=")? <<keyword>> a_name description? technology? tag?
+private meta taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? tag?
+private meta tech_taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? technology? tag?
 
 meta group_statements ::= "group" any_text opening_block <<level_statements>>* closing_block

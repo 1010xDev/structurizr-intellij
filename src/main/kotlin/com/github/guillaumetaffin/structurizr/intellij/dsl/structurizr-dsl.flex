@@ -21,7 +21,7 @@ HORIZONTAL_WHITESPACE=[ \t\f]+
 LINE_BREAK=[\n\r]
 
 QUOTED_TEXT=\"[^\"\r\n]*\"?
-UNQUOTED_TEXT=[^\s\"\r\n\{]+
+UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
 
 %%
 <YYINITIAL> {
@@ -33,6 +33,9 @@ UNQUOTED_TEXT=[^\s\"\r\n\{]+
   "container"                  { return Tokens.CONTAINER; }
   "component"                  { return Tokens.COMPONENT; }
   "group"                      { return Tokens.GROUP; }
+  "name"                       { return Tokens.NAME; }
+  "description"                { return Tokens.DESCRIPTION; }
+  "properties"                { return Tokens.PROPERTIES; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }
