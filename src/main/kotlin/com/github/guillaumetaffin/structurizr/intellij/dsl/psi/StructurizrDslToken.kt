@@ -21,6 +21,9 @@ class Group : StructurizrKeyword("group")
 class Name : StructurizrKeyword("name")
 class Description : StructurizrKeyword("description")
 class Properties : StructurizrKeyword("properties")
+class Identifiers : StructurizrKeyword("!identifiers")
+class Hierarchical : StructurizrKeyword("hierarchical")
+class Flat : StructurizrKeyword("flat")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -67,7 +70,16 @@ data object Tokens {
     val DESCRIPTION = Description()
 
     @JvmField
-    val PROPERTIES = Description()
+    val PROPERTIES = Properties()
+
+    @JvmField
+    val IDENTIFIERS = Identifiers()
+
+    @JvmField
+    val HIERARCHICAL = Hierarchical()
+
+    @JvmField
+    val FLAT = Flat()
 
     @JvmField
     val EQ = Equal()

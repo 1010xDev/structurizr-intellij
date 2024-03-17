@@ -35,7 +35,10 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "group"                      { return Tokens.GROUP; }
   "name"                       { return Tokens.NAME; }
   "description"                { return Tokens.DESCRIPTION; }
-  "properties"                { return Tokens.PROPERTIES; }
+  "properties"                 { return Tokens.PROPERTIES; }
+  "!identifiers"               { return Tokens.IDENTIFIERS; }
+  "hierarchical"               { return Tokens.HIERARCHICAL; }
+  "flat"                       { return Tokens.FLAT; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

@@ -31,6 +31,9 @@
     NAME="name"
     DESCRIPTION="description"
     PROPERTIES="properties"
+    IDENTIFIERS="!identifiers"
+    HIERARCHICAL="hierarchical"
+    FLAT="flat"
 
     EQ="="
 
@@ -55,12 +58,14 @@ workspace_definition ::= WORKSPACE ( a_name a_description? | "extends" uri )?
 private workspace_block_statements ::= name_statement
  | description_statement
  | properties_statement
+ | identifiers_statement
  | model_statement
 
  name_statement ::= "name" "=" any_text LINE_BREAK+
  description_statement ::= "description" "=" any_text LINE_BREAK+
  properties_statement ::= "properties" opening_block property_statement* closing_block
  property_statement ::= any_text any_text LINE_BREAK+
+ identifiers_statement ::= "!identifiers" ("hierarchical" | "flat") LINE_BREAK+
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
@@ -95,6 +100,9 @@ private any_keyword ::= "workspace"
  | "name"
  | "description"
  | "properties"
+ | "!identifiers"
+ | "hierarchical"
+ | "flat"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
