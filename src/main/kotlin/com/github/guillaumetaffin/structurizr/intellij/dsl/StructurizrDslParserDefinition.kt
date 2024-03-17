@@ -15,7 +15,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 
-class StructurizrDslParserDefinition: ParserDefinition {
+class StructurizrDslParserDefinition : ParserDefinition {
     override fun createLexer(project: Project?): Lexer = StructurizrDslLexerAdapter()
 
     override fun createParser(project: Project?): PsiParser = StructurizrDslParser()

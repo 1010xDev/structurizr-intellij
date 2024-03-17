@@ -6,7 +6,7 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 
-class StructurizrDslFile(viewProvider: FileViewProvider): PsiFileBase(viewProvider, StructurizrDsl) {
+class StructurizrDslFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, StructurizrDsl) {
     override fun getFileType(): FileType = StructurizrDslFileType
 
     override fun toString(): String = "Structurizr DSL File"
