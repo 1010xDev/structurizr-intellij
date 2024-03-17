@@ -39,6 +39,7 @@ class DeploymentEnvironment : StructurizrKeyword("deploymentEnvironment")
 class DeploymentGroup : StructurizrKeyword("deploymentGroup")
 class DeploymentNode : StructurizrKeyword("deploymentNode")
 class Instances : StructurizrKeyword("instances")
+class InfrastructureNode : StructurizrKeyword("infrastructureNode")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -140,6 +141,9 @@ data object Tokens {
 
     @JvmField
     val INSTANCES = Instances()
+
+    @JvmField
+    val INFRASTRUCTURE_NODE = InfrastructureNode()
 
     @JvmField
     val EQ = Equal()

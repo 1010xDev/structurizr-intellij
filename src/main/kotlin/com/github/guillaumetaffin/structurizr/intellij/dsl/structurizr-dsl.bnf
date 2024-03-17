@@ -49,6 +49,7 @@
     DEPLOYMENT_GROUP="deploymentGroup"
     DEPLOYMENT_NODE="deploymentNode"
     INSTANCES="instances"
+    INFRASTRUCTURE_NODE="infrastructureNode"
 
     EQ="="
 
@@ -123,10 +124,21 @@ deployment_node_statement ::= 'deploymentNode' a_name a_description? any_text? t
 deployment_node_block ::= opening_block deployment_node_block_statement* closing_block
 private deployment_node_block_statement ::= <<group_statements deployment_node_statement>>
  | deployment_node_statement
+ | infrastructure_node_statement
  | relation_statement
  | description_statement
  | technology_statement
  | instances_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+
+infrastructure_node_statement ::= 'infrastructureNode' a_name a_description? any_text? tag? (infrastructure_node_block | LINE_BREAK+)
+infrastructure_node_block ::= opening_block infrastructure_node_block_statement* closing_block
+private infrastructure_node_block_statement ::= relation_statement
+ | description_statement
+ | technology_statement
  | tags_statement
  | url_statement
  | properties_statement
@@ -221,6 +233,7 @@ private any_keyword ::= "workspace"
  | "deploymentNode"
  | "deploymentGroup"
  | "instances"
+ | "infrastructureNode"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
