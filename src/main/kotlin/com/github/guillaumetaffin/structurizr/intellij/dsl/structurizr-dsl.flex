@@ -55,6 +55,9 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "deploymentNode"             { return Tokens.DEPLOYMENT_NODE; }
   "instances"                  { return Tokens.INSTANCES; }
   "infrastructureNode"         { return Tokens.INFRASTRUCTURE_NODE; }
+  "softwareSystemInstance"     { return Tokens.SOFTWARE_SYSTEM_INSTANCE; }
+  "healthCheck"                { return Tokens.HEALTH_CHECK; }
+  "containerInstance"          { return Tokens.CONTAINER_INSTANCE; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

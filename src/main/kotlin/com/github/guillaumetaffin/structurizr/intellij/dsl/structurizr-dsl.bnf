@@ -50,6 +50,9 @@
     DEPLOYMENT_NODE="deploymentNode"
     INSTANCES="instances"
     INFRASTRUCTURE_NODE="infrastructureNode"
+    SOFTWARE_SYSTEM_INSTANCE="softwareSystemInstance"
+    HEALTH_CHECK="healthCheck"
+    CONTAINER_INSTANCE="containerInstance"
 
     EQ="="
 
@@ -125,6 +128,8 @@ deployment_node_block ::= opening_block deployment_node_block_statement* closing
 private deployment_node_block_statement ::= <<group_statements deployment_node_statement>>
  | deployment_node_statement
  | infrastructure_node_statement
+ | software_system_instance_statement
+ | container_instance_statement
  | relation_statement
  | description_statement
  | technology_statement
@@ -143,6 +148,28 @@ private infrastructure_node_block_statement ::= relation_statement
  | url_statement
  | properties_statement
  | perspectives_statement
+
+software_system_instance_statement ::= 'softwareSystemInstance' id any_text? tag? (software_system_instance_block | LINE_BREAK+)
+software_system_instance_block ::= opening_block software_system_instance_block_statement* closing_block
+private software_system_instance_block_statement ::= relation_statement
+ | description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | health_check_statement
+
+container_instance_statement ::= 'containerInstance' id any_text? tag? (container_instance_block | LINE_BREAK+)
+container_instance_block ::= opening_block container_instance_block_statement* closing_block
+private container_instance_block_statement ::= relation_statement
+ | description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ |health_check_statement
+
+health_check_statement ::= 'healthCheck' a_name any_text any_text? any_text?
 
 instances_statement ::= 'instances' any_text LINE_BREAK+
 
@@ -234,6 +261,9 @@ private any_keyword ::= "workspace"
  | "deploymentGroup"
  | "instances"
  | "infrastructureNode"
+ | "softwareSystemInstance"
+ | "healthCheck"
+ | "containerInstance"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
