@@ -42,6 +42,7 @@
     URL="url"
     PERSPECTIVES="perspectives"
     RELATION_ARROW="->"
+    THIS="this"
 
     EQ="="
 
@@ -102,6 +103,7 @@ private person_block_statement ::= description_statement
  | url_statement
  | properties_statement
  | perspectives_statement
+ | relation_statement
 
 software_system_statement ::= <<taggable_element_definition "softwareSystem" >> (software_system_block | LINE_BREAK+)
 software_system_block ::= opening_block software_system_block_statement* closing_block
@@ -115,6 +117,12 @@ private container_block_statement ::= component_statement
 
 component_statement ::= <<tech_taggable_element_definition "component" >> (component_block | LINE_BREAK+)
 private component_block ::= opening_block closing_block
+
+relation_statement ::= lhs_relation_statement '->' rhs_relation_statement (relation_block | LINE_BREAK+)
+rhs_relation_statement ::= id a_description? technology? tag?
+lhs_relation_statement ::= ('this' | id) ?
+relation_block ::= opening_block relation_block_statements closing_block
+private relation_block_statements ::= tags_statement | url_statement | properties_statement | perspective_statement
 
 id ::= any_text
 private any_text ::= UNQUOTED_TEXT | QUOTED_TEXT| any_keyword
