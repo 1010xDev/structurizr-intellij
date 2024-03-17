@@ -38,6 +38,8 @@
     ADRS="!adrs"
     VIEWS="views"
     CONFIGURATION="configuration"
+    TAGS="tags"
+    URL="url"
 
     EQ="="
 
@@ -58,7 +60,7 @@ structurizrFile ::= top_level_statements*
 private top_level_statements ::= workspace_statement
 
 workspace_statement ::= workspace_definition opening_block workspace_block_statements*  closing_block
-workspace_definition ::= WORKSPACE ( a_name a_description? | "extends" uri )?
+workspace_definition ::= WORKSPACE ( a_name a_description? | "extends" any_text )?
 private workspace_block_statements ::= name_statement
  | description_statement
  | properties_statement
@@ -69,27 +71,34 @@ private workspace_block_statements ::= name_statement
  | views_statement
  | configuration_statement
 
- name_statement ::= "name" "=" any_text LINE_BREAK+
- description_statement ::= "description" "=" any_text LINE_BREAK+
+ name_statement ::= "name" any_text LINE_BREAK+
+ description_statement ::= "description" any_text LINE_BREAK+
  properties_statement ::= "properties" opening_block property_statement* closing_block
  property_statement ::= any_text any_text LINE_BREAK+
  identifiers_statement ::= "!identifiers" ("hierarchical" | "flat") LINE_BREAK+
  docs_statement ::= '!docs' any_text any_text? LINE_BREAK+
  adrs_statement ::= '!adrs' any_text any_text? LINE_BREAK+
+ tags_statement ::= 'tags' any_text+ LINE_BREAK+
+ url_statement ::= 'url' any_text LINE_BREAK+
 
 model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
  | software_system_statement
+ | identifiers_statement
  | <<group_statements model_block_statement>>
 
 views_statement ::= "views" opening_block closing_block
 
 configuration_statement ::= "configuration" opening_block closing_block
 
-person_statement ::= <<taggable_element_definition "person">> LINE_BREAK+
+person_statement ::= <<taggable_element_definition "person">> (person_block | LINE_BREAK+)
+person_block ::= opening_block person_block_statement* closing_block
+private person_block_statement ::= description_statement
+ | tags_statement
+ | url_statement
 
 software_system_statement ::= <<taggable_element_definition "softwareSystem" >> (software_system_block | LINE_BREAK+)
-private software_system_block ::= opening_block software_system_block_statement* closing_block
+software_system_block ::= opening_block software_system_block_statement* closing_block
 private software_system_block_statement ::= container_statement
  | <<group_statements software_system_block_statement>>
 
@@ -120,13 +129,14 @@ private any_keyword ::= "workspace"
  | "!docs"
  | "!adrs"
  | "views"
+ | "tags"
+ | "url"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
 
 a_name ::= any_text
 a_description ::= any_text
-uri ::= any_text
 tag ::= any_text
 technology ::= any_text
 

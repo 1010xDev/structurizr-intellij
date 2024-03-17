@@ -43,6 +43,8 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "!adrs"                      { return Tokens.ADRS; }
   "views"                      { return Tokens.VIEWS; }
   "configuration"              { return Tokens.CONFIGURATION; }
+  "tags"                       { return Tokens.TAGS; }
+  "url"                        { return Tokens.URL; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

@@ -28,6 +28,8 @@ class Docs : StructurizrKeyword("!docs")
 class Adrs : StructurizrKeyword("!adrs")
 class Views : StructurizrKeyword("views")
 class Configuration : StructurizrKeyword("configuration")
+class Tags : StructurizrKeyword("tags")
+class Url : StructurizrKeyword("url")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -96,6 +98,12 @@ data object Tokens {
 
     @JvmField
     val CONFIGURATION = Configuration()
+
+    @JvmField
+    val TAGS = Tags()
+
+    @JvmField
+    val URL = Url()
 
     @JvmField
     val EQ = Equal()
