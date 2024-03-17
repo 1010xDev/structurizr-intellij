@@ -32,13 +32,9 @@ class StructurizrDslSyntaxHighlighter : SyntaxHighlighterBase() {
 
 object AttributeKeys {
     val KEYWORD = keys("KEYWORD", Colors.KEYWORD)
-    val IDENTIFIER = keys("IDENTIFIER", Colors.IDENTIFIER)
-    val NUMBER = keys("NUMBER", Colors.NUMBER)
     val STRING = keys("STRING", Colors.STRING)
-    val SEMICOLON = keys("SEMICOLON", Colors.SEMICOLON)
     val OPERATOR = keys("EQUAL", Colors.OPERATION_SIGN)
     val PARENS = keys("PARENS", Colors.PARENTHESES)
-    val COMMA = keys("COMMA", Colors.COMMA)
     val BAD_CHARACTER = keys("BAD CHARACTER", HighlighterColors.BAD_CHARACTER)
     val NO_HIGHLIGHTING = keys("NO HIGHLIGHTING", HighlighterColors.NO_HIGHLIGHTING)
 }
