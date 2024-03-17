@@ -50,6 +50,9 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "this"                       { return Tokens.THIS; }
   "technology"                 { return Tokens.TECHNOLOGY; }
   "element"                    { return Tokens.ELEMENT; }
+  "deploymentEnvironment"      { return Tokens.DEPLOYMENT_ENVIRONMENT; }
+  "deploymentGroup"            { return Tokens.DEPLOYMENT_GROUP; }
+  "deploymentNode"             { return Tokens.DEPLOYMENT_NODE; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

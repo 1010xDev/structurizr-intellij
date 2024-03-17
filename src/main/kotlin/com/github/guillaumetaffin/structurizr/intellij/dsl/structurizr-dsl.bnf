@@ -45,6 +45,9 @@
     THIS="this"
     TECHNOLOGY="technology"
     ELEMENT="element"
+    DEPLOYMENT_ENVIRONMENT="deploymentEnvironment"
+    DEPLOYMENT_GROUP="deploymentGroup"
+    DEPLOYMENT_NODE="deploymentNode"
 
     EQ="="
 
@@ -93,8 +96,9 @@ model_statement ::= "model" opening_block model_block_statement* closing_block
 private model_block_statement ::= person_statement
  | software_system_statement
  | identifiers_statement
- | <<group_statements model_block_statement>>
  | element_statement
+ | deployment_environment_statement
+ | <<group_statements model_block_statement>>
 
 element_statement ::= 'element' a_name any_text? a_description? tag? (element_block | LINE_BREAK+)
 element_block ::= opening_block element_block_statement* closing_block
@@ -104,6 +108,17 @@ element_block_statement ::= description_statement
  | properties_statement
  | perspectives_statement
  | relation_statement
+
+deployment_environment_statement ::= 'deploymentEnvironment' a_name deployment_environment_block
+deployment_environment_block ::= opening_block deployment_environment_block_statement* closing_block
+private deployment_environment_block_statement ::= relation_statement
+ | deployment_group_statement
+ | deployment_node_statement
+ | <<group_statements deployment_environment_block_statement>>
+
+deployment_group_statement ::= 'deploymentGroup' a_name LINE_BREAK+
+
+deployment_node_statement ::= 'deploymentNode' a_name a_description? any_text? tag? any_text? LINE_BREAK+
 
 views_statement ::= "views" opening_block closing_block
 
@@ -188,6 +203,9 @@ private any_keyword ::= "workspace"
  | "this"
  | "technology"
  | "element"
+ | "deploymentEnvironment"
+ | "deploymentNode"
+ | "deploymentGroup"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

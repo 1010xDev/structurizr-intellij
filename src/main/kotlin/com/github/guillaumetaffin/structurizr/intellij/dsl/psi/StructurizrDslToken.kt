@@ -35,6 +35,9 @@ class RelationArrow : StructurizrKeyword("->")
 class This : StructurizrKeyword("this")
 class Technology : StructurizrKeyword("technology")
 class Element : StructurizrKeyword("element")
+class DeploymentEnvironment : StructurizrKeyword("deploymentEnvironment")
+class DeploymentGroup : StructurizrKeyword("deploymentGroup")
+class DeploymentNode : StructurizrKeyword("deploymentNode")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -124,6 +127,15 @@ data object Tokens {
 
     @JvmField
     val ELEMENT = Element()
+
+    @JvmField
+    val DEPLOYMENT_ENVIRONMENT = DeploymentEnvironment()
+
+    @JvmField
+    val DEPLOYMENT_GROUP = DeploymentGroup()
+
+    @JvmField
+    val DEPLOYMENT_NODE = DeploymentNode()
 
     @JvmField
     val EQ = Equal()
