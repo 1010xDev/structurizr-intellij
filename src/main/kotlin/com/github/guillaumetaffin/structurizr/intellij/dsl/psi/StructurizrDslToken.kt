@@ -43,6 +43,15 @@ class InfrastructureNode : StructurizrKeyword("infrastructureNode")
 class SoftwareSystemInstance : StructurizrKeyword("softwareSystemInstance")
 class HealthCheck : StructurizrKeyword("healthCheck")
 class ContainerInstance : StructurizrKeyword("containerInstance")
+class SystemLandscape : StructurizrKeyword("systemLandscape")
+class Include : StructurizrKeyword("include")
+class Exclude : StructurizrKeyword("exclude")
+class Autolayout : StructurizrKeyword("autolayout")
+class Bt : StructurizrKeyword("bt")
+class Tb : StructurizrKeyword("tb")
+class Rl : StructurizrKeyword("rl")
+class Lr : StructurizrKeyword("lr")
+class Default : StructurizrKeyword("default")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -156,6 +165,33 @@ data object Tokens {
 
     @JvmField
     val CONTAINER_INSTANCE = ContainerInstance()
+
+    @JvmField
+    val SYSTEM_LANDSCAPE = SystemLandscape()
+
+    @JvmField
+    val INCLUDE = Include()
+
+    @JvmField
+    val EXCLUDE = Exclude()
+
+    @JvmField
+    val AUTOLAYOUT = Autolayout()
+
+    @JvmField
+    val BT = Bt()
+
+    @JvmField
+    val TB = Tb()
+
+    @JvmField
+    val LR = Lr()
+
+    @JvmField
+    val RL = Rl()
+
+    @JvmField
+    val DEFAULT = Default()
 
     @JvmField
     val EQ = Equal()

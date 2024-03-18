@@ -58,6 +58,15 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "softwareSystemInstance"     { return Tokens.SOFTWARE_SYSTEM_INSTANCE; }
   "healthCheck"                { return Tokens.HEALTH_CHECK; }
   "containerInstance"          { return Tokens.CONTAINER_INSTANCE; }
+  "systemLandscape"            { return Tokens.SYSTEM_LANDSCAPE; }
+  "include"                    { return Tokens.INCLUDE; }
+  "exclude"                    { return Tokens.EXCLUDE; }
+  "autolayout"                 { return Tokens.AUTOLAYOUT; }
+  "bt"                         { return Tokens.BT; }
+  "tb"                         { return Tokens.TB; }
+  "lr"                         { return Tokens.LR; }
+  "rl"                         { return Tokens.RL; }
+  "default"                    { return Tokens.DEFAULT; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

@@ -53,6 +53,15 @@
     SOFTWARE_SYSTEM_INSTANCE="softwareSystemInstance"
     HEALTH_CHECK="healthCheck"
     CONTAINER_INSTANCE="containerInstance"
+    SYSTEM_LANDSCAPE="systemLandscape"
+    INCLUDE="include"
+    EXCLUDE="exclude"
+    AUTOLAYOUT="autolayout"
+    TB="tb"
+    BT="bt"
+    LR="lr"
+    RL="rl"
+    DEFAULT="default"
 
     EQ="="
 
@@ -224,10 +233,31 @@ private component_block_statement ::= docs_statement
 relation_statement ::= lhs_relation_statement '->' rhs_relation_statement (relation_block | LINE_BREAK+)
 rhs_relation_statement ::= ('this' | id) a_description? any_text? tag?
 lhs_relation_statement ::= ('this' | id) ?
-relation_block ::= opening_block relation_block_statements closing_block
+relation_block ::= opening_block relation_block_statements* closing_block
 private relation_block_statements ::= tags_statement | url_statement | properties_statement | perspective_statement
 
-views_statement ::= "views" opening_block closing_block
+views_statement ::= "views" views_block
+views_block ::= opening_block views_block_statement* closing_block
+views_block_statement ::= system_landscape_view_statement
+
+system_landscape_view_statement ::= 'systemLandscape' view_key? a_description? (system_landscape_view_block | LINE_BREAK+)
+system_landscape_view_block ::= opening_block system_landscape_view_block_statement* closing_block
+private system_landscape_view_block_statement ::= include_statement
+ | exclude_statement
+ | autolayout_statement
+ | default_statement
+
+include_statement ::= include_element_statement | include_relationship_statement
+include_element_statement ::= 'include' ('*' | id | any_text)+ LINE_BREAK+
+include_relationship_statement ::= 'include' (id | any_text)+ LINE_BREAK+
+
+exclude_statement ::= 'exclude' (id | any_text)+ LINE_BREAK+
+
+autolayout_statement ::= 'autolayout' ('tb' | 'bt' | 'lr' | 'rl') any_text? any_text? LINE_BREAK+
+
+default_statement ::= 'default' LINE_BREAK+
+
+view_key ::= any_text
 
 configuration_statement ::= "configuration" opening_block closing_block
 
@@ -264,6 +294,15 @@ private any_keyword ::= "workspace"
  | "softwareSystemInstance"
  | "healthCheck"
  | "containerInstance"
+ | "systemLandscape"
+ | "include"
+ | "exclude"
+ | "autolayout"
+ | "bt"
+ | "tb"
+ | "lr"
+ | "rl"
+ | "default"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
