@@ -15,12 +15,12 @@
         />
 
         <lang.parserDefinition language="StructurizrDsl"
-        implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.StructurizrDslParserDefinition"
+                               implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.StructurizrDslParserDefinition"
         />
 
         <lang.syntaxHighlighterFactory
-        language="StructurizrDsl"
-        implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.highlighting.StructurizrDslSyntaxHighlighterFactory"
+                language="StructurizrDsl"
+                implementationClass="com.github.guillaumetaffin.structurizr.intellij.dsl.highlighting.StructurizrDslSyntaxHighlighterFactory"
         />
     </extensions>
 

@@ -52,6 +52,18 @@ class Tb : StructurizrKeyword("tb")
 class Rl : StructurizrKeyword("rl")
 class Lr : StructurizrKeyword("lr")
 class Default : StructurizrKeyword("default")
+class Star : StructurizrKeyword("*")
+class Animation : StructurizrKeyword("animation")
+class Title : StructurizrKeyword("title")
+class SystemContext : StructurizrKeyword("systemContext")
+class Filtered : StructurizrKeyword("filtered")
+class Dynamic : StructurizrKeyword("dynamic")
+class Deployment : StructurizrKeyword("deployment")
+class Custom : StructurizrKeyword("custom")
+class Image : StructurizrKeyword("image")
+class PlantUml : StructurizrKeyword("plantuml")
+class Mermaid : StructurizrKeyword("mermaid")
+class Kroki : StructurizrKeyword("kroki")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -192,6 +204,42 @@ data object Tokens {
 
     @JvmField
     val DEFAULT = Default()
+
+    @JvmField
+    val STAR = Star()
+
+    @JvmField
+    val ANIMATION = Animation()
+
+    @JvmField
+    val TITLE = Title()
+
+    @JvmField
+    val SYSTEM_CONTEXT = SystemContext()
+
+    @JvmField
+    val FILTERED = Filtered()
+
+    @JvmField
+    val DYNAMIC = Dynamic()
+
+    @JvmField
+    val DEPLOYMENT = Deployment()
+
+    @JvmField
+    val CUSTOM = Custom()
+
+    @JvmField
+    val IMAGE = Image()
+
+    @JvmField
+    val PLANTUML = PlantUml()
+
+    @JvmField
+    val MERMAID = Mermaid()
+
+    @JvmField
+    val KROKI = Kroki()
 
     @JvmField
     val EQ = Equal()

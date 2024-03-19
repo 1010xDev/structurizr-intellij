@@ -62,6 +62,18 @@
     LR="lr"
     RL="rl"
     DEFAULT="default"
+    STAR="*"
+    ANIMATION="animation"
+    TITLE="title"
+    SYSTEM_CONTEXT="systemContext"
+    FILTERED="filtered"
+    DYNAMIC="dynamic"
+    DEPLOYMENT="deployment"
+    CUSTOM="custom"
+    IMAGE="image"
+    PLANTUML="plantuml"
+    MERMAID="mermaid"
+    KROKI="kroki"
 
     EQ="="
 
@@ -239,13 +251,54 @@ private relation_block_statements ::= tags_statement | url_statement | propertie
 views_statement ::= "views" views_block
 views_block ::= opening_block views_block_statement* closing_block
 views_block_statement ::= system_landscape_view_statement
+ | system_context_view_statement
+ | container_view_statement
+ | component_view_statement
+ | filtered_view_statement
+ | dynamic_view_statement
+ | deployment_view_statement
+ | custom_view_statement
+ | image_view_statement
 
-system_landscape_view_statement ::= 'systemLandscape' view_key? a_description? (system_landscape_view_block | LINE_BREAK+)
-system_landscape_view_block ::= opening_block system_landscape_view_block_statement* closing_block
+system_landscape_view_statement ::=  'systemLandscape' view_key? a_description? (common_view_block | LINE_BREAK+)
+
+system_context_view_statement ::= 'systemContext' id view_key? a_description? (common_view_block | LINE_BREAK+)
+
+container_view_statement ::= 'container' id view_key? a_description? (common_view_block | LINE_BREAK+)
+
+component_view_statement ::= 'component' id view_key? a_description? (common_view_block | LINE_BREAK+)
+
+filtered_view_statement ::= 'filtered' view_key ('include' | 'exclude') tag view_key? a_description? (filtered_view_block | LINE_BREAK+)
+filtered_view_block ::= opening_block (default_statement | title_statement | description_statement | properties_statement)* closing_block
+
+dynamic_view_statement ::= 'dynamic' ('*' | id) view_key? a_description? (dynamic_view_block | LINE_BREAK+)
+dynamic_view_block ::= opening_block (relation_statement | autolayout_statement | default_statement | title_statement | description_statement | properties_statement)* closing_block
+
+deployment_view_statement ::= 'deployment' ('*' | id) any_text view_key? a_description? (common_view_block | LINE_BREAK+)
+
+custom_view_statement ::= 'custom' view_key? any_text? a_description? (common_view_block | LINE_BREAK+)
+
+image_view_statement ::= 'image' ('*' | id) view_key? (image_view_block | LINE_BREAK+)
+image_view_block ::= opening_block image_view_block_statement* closing_block
+private image_view_block_statement ::= 'plantuml' any_text
+ | 'mermaid' any_text
+ | 'kroki' any_text
+ | 'image' any_text
+ | default_statement
+ | title_statement
+ | description_statement
+ | properties_statement
+
+common_view_block ::= opening_block system_landscape_view_block_statement* closing_block
 private system_landscape_view_block_statement ::= include_statement
  | exclude_statement
  | autolayout_statement
  | default_statement
+ | animation_statement
+ | title_statement
+ | description_statement
+ | properties_statement
+
 
 include_statement ::= include_element_statement | include_relationship_statement
 include_element_statement ::= 'include' ('*' | id | any_text)+ LINE_BREAK+
@@ -256,6 +309,11 @@ exclude_statement ::= 'exclude' (id | any_text)+ LINE_BREAK+
 autolayout_statement ::= 'autolayout' ('tb' | 'bt' | 'lr' | 'rl') any_text? any_text? LINE_BREAK+
 
 default_statement ::= 'default' LINE_BREAK+
+
+animation_statement ::= 'animation' opening_block animation_step* closing_block
+animation_step ::= id+ LINE_BREAK+
+
+title_statement ::= 'title' any_text LINE_BREAK+
 
 view_key ::= any_text
 
@@ -303,6 +361,17 @@ private any_keyword ::= "workspace"
  | "lr"
  | "rl"
  | "default"
+ | "animation"
+ | "title"
+ | "systemContext"
+ | "filtered"
+ | "dynamic"
+ | "deployment"
+ | "custom"
+ | "image"
+ | "plantuml"
+ | "mermaid"
+ | "kroki"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

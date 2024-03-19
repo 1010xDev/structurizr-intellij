@@ -67,6 +67,18 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "lr"                         { return Tokens.LR; }
   "rl"                         { return Tokens.RL; }
   "default"                    { return Tokens.DEFAULT; }
+  "*"                          { return Tokens.STAR; }
+  "animation"                  { return Tokens.ANIMATION; }
+  "title"                      { return Tokens.TITLE; }
+  "systemContext"              { return Tokens.SYSTEM_CONTEXT; }
+  "filtered"                   { return Tokens.FILTERED; }
+  "dynamic"                    { return Tokens.DYNAMIC; }
+  "deployment"                 { return Tokens.DEPLOYMENT; }
+  "custom"                     { return Tokens.CUSTOM; }
+  "image"                      { return Tokens.IMAGE; }
+  "plantuml"                   { return Tokens.PLANTUML; }
+  "mermaid"                    { return Tokens.MERMAID; }
+  "kroki"                      { return Tokens.KROKI; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }
