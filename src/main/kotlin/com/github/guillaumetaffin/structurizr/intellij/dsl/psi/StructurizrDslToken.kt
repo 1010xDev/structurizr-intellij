@@ -64,6 +64,23 @@ class Image : StructurizrKeyword("image")
 class PlantUml : StructurizrKeyword("plantuml")
 class Mermaid : StructurizrKeyword("mermaid")
 class Kroki : StructurizrKeyword("kroki")
+class Styles : StructurizrKeyword("styles")
+class Shape : StructurizrKeyword("shape")
+class Box : StructurizrKeyword("Box")
+class RoundedBox : StructurizrKeyword("RoundedBox")
+class Circle : StructurizrKeyword("Circle")
+class Ellipse : StructurizrKeyword("Ellipse")
+class Hexagon : StructurizrKeyword("Hexagon")
+class Cylinder : StructurizrKeyword("Cylinder")
+class Pipe : StructurizrKeyword("Pipe")
+class PersonShape : StructurizrKeyword("Person")
+class Robot : StructurizrKeyword("Robot")
+class Folder : StructurizrKeyword("Folder")
+class WebBrowser : StructurizrKeyword("WebBrowser")
+class MobileDevicePortrait : StructurizrKeyword("MobileDevicePortrait")
+class MobileDeviceLandscape : StructurizrKeyword("MobileDeviceLandscape")
+class ComponentShape : StructurizrKeyword("ComponentShape")
+class Relationship : StructurizrKeyword("relationship")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -240,6 +257,57 @@ data object Tokens {
 
     @JvmField
     val KROKI = Kroki()
+
+    @JvmField
+    val STYLES = Styles()
+
+    @JvmField
+    val SHAPE = Shape()
+
+    @JvmField
+    val BOX = Box()
+
+    @JvmField
+    val ROUNDED_BOX = RoundedBox()
+
+    @JvmField
+    val CIRCLE = Circle()
+
+    @JvmField
+    val ELLIPSE = Ellipse()
+
+    @JvmField
+    val HEXAGON = Hexagon()
+
+    @JvmField
+    val CYLINDER = Cylinder()
+
+    @JvmField
+    val PIPE = Pipe()
+
+    @JvmField
+    val PERSON_SHAPE = PersonShape()
+
+    @JvmField
+    val ROBOT = Robot()
+
+    @JvmField
+    val FOLDER = Folder()
+
+    @JvmField
+    val WEB_BROWSER = WebBrowser()
+
+    @JvmField
+    val MOBILE_DEVICE_PORTRAIT = MobileDevicePortrait()
+
+    @JvmField
+    val MOBILE_DEVICE_LANDSCAPE = MobileDeviceLandscape()
+
+    @JvmField
+    val COMPONENT_SHAPE = ComponentShape()
+
+    @JvmField
+    val RELATIONSHIP = Relationship()
 
     @JvmField
     val EQ = Equal()

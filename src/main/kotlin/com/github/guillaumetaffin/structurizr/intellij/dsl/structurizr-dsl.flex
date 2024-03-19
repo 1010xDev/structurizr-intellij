@@ -79,6 +79,23 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "plantuml"                   { return Tokens.PLANTUML; }
   "mermaid"                    { return Tokens.MERMAID; }
   "kroki"                      { return Tokens.KROKI; }
+  "styles"                     { return Tokens.STYLES; }
+  "shape"                      { return Tokens.SHAPE; }
+  "Box"                        { return Tokens.BOX; }
+  "RoundedBox"                 { return Tokens.ROUNDED_BOX; }
+  "Circle"                     { return Tokens.CIRCLE; }
+  "Ellipse"                    { return Tokens.ELLIPSE; }
+  "Hexagon"                    { return Tokens.HEXAGON; }
+  "Cylinder"                   { return Tokens.CYLINDER; }
+  "Pipe"                       { return Tokens.PIPE; }
+  "Person"                     { return Tokens.PERSON_SHAPE; }
+  "Robot"                      { return Tokens.ROBOT; }
+  "Folder"                     { return Tokens.FOLDER; }
+  "WebBrowser"                 { return Tokens.WEB_BROWSER; }
+  "MobileDevicePortrait"       { return Tokens.MOBILE_DEVICE_PORTRAIT; }
+  "MobileDeviceLandscape"      { return Tokens.MOBILE_DEVICE_LANDSCAPE; }
+  "Component"                  { return Tokens.COMPONENT_SHAPE; }
+  "relationship"               { return Tokens.RELATIONSHIP; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

@@ -74,6 +74,23 @@
     PLANTUML="plantuml"
     MERMAID="mermaid"
     KROKI="kroki"
+    STYLES="styles"
+    SHAPE="shape"
+    BOX="Box"
+    ROUNDED_BOX="RoundedBox"
+    CIRCLE="Circle"
+    ELLIPSE="Ellipse"
+    HEXAGON="Hexagon"
+    CYLINDER="Cylinder"
+    PIPE="Pipe"
+    PERSON_SHAPE="Person"
+    ROBOT="Robot"
+    FOLDER="Folder"
+    WEB_BROWSER="WebBrowser"
+    MOBILE_DEVICE_PORTRAIT="MobileDevicePortrait"
+    MOBILE_DEVICE_LANDSCAPE="MobileDeviceLandscape"
+    COMPONENT_SHAPE="Component"
+    RELATIONSHIP="relationship"
 
     EQ="="
 
@@ -259,6 +276,7 @@ views_block_statement ::= system_landscape_view_statement
  | deployment_view_statement
  | custom_view_statement
  | image_view_statement
+ | styles_statement
 
 system_landscape_view_statement ::=  'systemLandscape' view_key? a_description? (common_view_block | LINE_BREAK+)
 
@@ -298,6 +316,17 @@ private system_landscape_view_block_statement ::= include_statement
  | title_statement
  | description_statement
  | properties_statement
+
+styles_statement ::= 'styles' styles_block
+styles_block ::= opening_block (element_style | relationship_style)* closing_block
+
+element_style ::= 'element' tag opening_block (
+'shape' shape
+)* closing_block
+
+private shape ::= 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
+
+relationship_style ::= 'relationship'
 
 
 include_statement ::= include_element_statement | include_relationship_statement
@@ -372,6 +401,8 @@ private any_keyword ::= "workspace"
  | "plantuml"
  | "mermaid"
  | "kroki"
+ | shape
+ | "relationship"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
