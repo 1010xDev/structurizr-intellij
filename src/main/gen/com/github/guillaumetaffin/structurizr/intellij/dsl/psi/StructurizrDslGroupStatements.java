@@ -14,6 +14,9 @@ public interface StructurizrDslGroupStatements extends PsiElement {
   StructurizrDslOpeningBlock getOpeningBlock();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

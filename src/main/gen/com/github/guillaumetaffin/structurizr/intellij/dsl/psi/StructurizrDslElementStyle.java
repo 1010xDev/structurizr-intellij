@@ -14,6 +14,9 @@ public interface StructurizrDslElementStyle extends PsiElement {
   StructurizrDslOpeningBlock getOpeningBlock();
 
   @NotNull
+  List<StructurizrDslPropertiesStatement> getPropertiesStatementList();
+
+  @NotNull
   StructurizrDslTag getTag();
 
 }

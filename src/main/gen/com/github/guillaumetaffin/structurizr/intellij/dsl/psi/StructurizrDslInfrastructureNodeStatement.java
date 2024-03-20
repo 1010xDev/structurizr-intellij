@@ -20,6 +20,9 @@ public interface StructurizrDslInfrastructureNodeStatement extends PsiElement {
   StructurizrDslTag getTag();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

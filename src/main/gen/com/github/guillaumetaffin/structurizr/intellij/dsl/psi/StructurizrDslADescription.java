@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface StructurizrDslADescription extends PsiElement {
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

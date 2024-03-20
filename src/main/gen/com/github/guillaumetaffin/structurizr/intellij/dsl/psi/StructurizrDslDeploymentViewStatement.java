@@ -20,6 +20,9 @@ public interface StructurizrDslDeploymentViewStatement extends PsiElement {
   StructurizrDslViewKey getViewKey();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

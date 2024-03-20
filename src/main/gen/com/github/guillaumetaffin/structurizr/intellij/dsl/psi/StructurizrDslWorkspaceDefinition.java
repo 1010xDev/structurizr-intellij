@@ -14,6 +14,9 @@ public interface StructurizrDslWorkspaceDefinition extends PsiElement {
   StructurizrDslAName getAName();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

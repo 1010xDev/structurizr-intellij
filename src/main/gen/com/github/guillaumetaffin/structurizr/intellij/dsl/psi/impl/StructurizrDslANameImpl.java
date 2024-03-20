@@ -30,6 +30,12 @@ public class StructurizrDslANameImpl extends ASTWrapperPsiElement implements Str
 
   @Override
   @Nullable
+  public PsiElement getColor() {
+    return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getQuotedText() {
     return findChildByType(QUOTED_TEXT);
   }

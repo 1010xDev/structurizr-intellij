@@ -81,6 +81,22 @@ class MobileDevicePortrait : StructurizrKeyword("MobileDevicePortrait")
 class MobileDeviceLandscape : StructurizrKeyword("MobileDeviceLandscape")
 class ComponentShape : StructurizrKeyword("ComponentShape")
 class Relationship : StructurizrKeyword("relationship")
+class Icon : StructurizrKeyword("icon")
+class Width : StructurizrKeyword("width")
+class Height : StructurizrKeyword("height")
+class Background : StructurizrKeyword("background")
+class Color : StructurizrKeyword("color|colour")
+class Stroke : StructurizrKeyword("stroke")
+class StrokeWidth : StructurizrKeyword("strokeWidth")
+class FontSize : StructurizrKeyword("fontSize")
+class Border : StructurizrKeyword("border")
+class Solid : StructurizrKeyword("solid")
+class Dashed : StructurizrKeyword("dashed")
+class Dotted : StructurizrKeyword("dotted")
+class Opacity : StructurizrKeyword("opacity")
+class MetadataKw : StructurizrKeyword("metadata")
+class True : StructurizrKeyword("true")
+class False : StructurizrKeyword("false")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -308,6 +324,54 @@ data object Tokens {
 
     @JvmField
     val RELATIONSHIP = Relationship()
+
+    @JvmField
+    val ICON = Icon()
+
+    @JvmField
+    val WIDTH = Width()
+
+    @JvmField
+    val HEIGHT = Height()
+
+    @JvmField
+    val BACKGROUND = Background()
+
+    @JvmField
+    val COLOR = Color()
+
+    @JvmField
+    val STROKE = Stroke()
+
+    @JvmField
+    val STROKE_WIDTH = StrokeWidth()
+
+    @JvmField
+    val FONT_SIZE = FontSize()
+
+    @JvmField
+    val BORDER = Border()
+
+    @JvmField
+    val SOLID = Solid()
+
+    @JvmField
+    val DASHED = Dashed()
+
+    @JvmField
+    val DOTTED = Dotted()
+
+    @JvmField
+    val OPACITY = Opacity()
+
+    @JvmField
+    val METADATA = MetadataKw()
+
+    @JvmField
+    val TRUE = True()
+
+    @JvmField
+    val FALSE = False()
 
     @JvmField
     val EQ = Equal()

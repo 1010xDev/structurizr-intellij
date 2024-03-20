@@ -41,6 +41,12 @@ public class StructurizrDslElementStyleImpl extends ASTWrapperPsiElement impleme
 
   @Override
   @NotNull
+  public List<StructurizrDslPropertiesStatement> getPropertiesStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslPropertiesStatement.class);
+  }
+
+  @Override
+  @NotNull
   public StructurizrDslTag getTag() {
     return findNotNullChildByClass(StructurizrDslTag.class);
   }

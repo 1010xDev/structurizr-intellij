@@ -96,6 +96,23 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "MobileDeviceLandscape"      { return Tokens.MOBILE_DEVICE_LANDSCAPE; }
   "Component"                  { return Tokens.COMPONENT_SHAPE; }
   "relationship"               { return Tokens.RELATIONSHIP; }
+  "icon"                       { return Tokens.ICON; }
+  "width"                      { return Tokens.WIDTH; }
+  "height"                     { return Tokens.HEIGHT; }
+  "background"                 { return Tokens.BACKGROUND; }
+  "color"                      { return Tokens.COLOR; }
+  "colour"                     { return Tokens.COLOR; }
+  "stroke"                     { return Tokens.STROKE; }
+  "strokeWidth"                { return Tokens.STROKE_WIDTH; }
+  "fontSize"                   { return Tokens.FONT_SIZE; }
+  "border"                     { return Tokens.BORDER; }
+  "solid"                      { return Tokens.SOLID; }
+  "dashed"                     { return Tokens.DASHED; }
+  "dotted"                     { return Tokens.DOTTED; }
+  "opacity"                    { return Tokens.OPACITY; }
+  "metadata"                   { return Tokens.METADATA; }
+  "true"                       { return Tokens.TRUE; }
+  "false"                      { return Tokens.FALSE; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

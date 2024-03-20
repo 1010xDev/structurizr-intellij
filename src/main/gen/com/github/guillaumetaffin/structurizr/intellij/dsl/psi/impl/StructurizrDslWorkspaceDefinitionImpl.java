@@ -42,6 +42,12 @@ public class StructurizrDslWorkspaceDefinitionImpl extends ASTWrapperPsiElement 
 
   @Override
   @Nullable
+  public PsiElement getColor() {
+    return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getQuotedText() {
     return findChildByType(QUOTED_TEXT);
   }

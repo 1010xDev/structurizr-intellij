@@ -23,6 +23,9 @@ public interface StructurizrDslComponentStatement extends PsiElement {
   StructurizrDslTag getTag();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

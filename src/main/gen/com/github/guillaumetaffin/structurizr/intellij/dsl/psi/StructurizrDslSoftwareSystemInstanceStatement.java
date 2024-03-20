@@ -17,6 +17,9 @@ public interface StructurizrDslSoftwareSystemInstanceStatement extends PsiElemen
   StructurizrDslTag getTag();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable

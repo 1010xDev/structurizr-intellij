@@ -91,6 +91,22 @@
     MOBILE_DEVICE_LANDSCAPE="MobileDeviceLandscape"
     COMPONENT_SHAPE="Component"
     RELATIONSHIP="relationship"
+    ICON="icon"
+    WIDTH="width"
+    HEIGHT="height"
+    BACKGROUND="background"
+    COLOR="regexp:(color|colour)"
+    STROKE="stroke"
+    STROKE_WIDTH="strokeWidth"
+    FONT_SIZE="fontSize"
+    BORDER="border"
+    SOLID="solid"
+    DASHED="dashed"
+    DOTTED="dotted"
+    OPACITY="opacity"
+    METADATA="metadata"
+    TRUE="true"
+    FALSE="false"
 
     EQ="="
 
@@ -320,8 +336,19 @@ private system_landscape_view_block_statement ::= include_statement
 styles_statement ::= 'styles' styles_block
 styles_block ::= opening_block (element_style | relationship_style)* closing_block
 
-element_style ::= 'element' tag opening_block (
-'shape' shape
+element_style ::= 'element' tag opening_block ( 'shape' shape
+ | 'icon' any_text LINE_BREAK+
+ | 'width' any_text LINE_BREAK+
+ | 'height' any_text LINE_BREAK+
+ | 'background' any_text LINE_BREAK+
+ | COLOR any_text LINE_BREAK+
+ | 'stroke' any_text LINE_BREAK+
+ | 'strokeWidth' any_text LINE_BREAK+
+ | 'fontSize' any_text LINE_BREAK+
+ | 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
+ | 'opacity' any_text LINE_BREAK+
+ | 'metadata' ('true' | 'false') LINE_BREAK+
+ | properties_statement
 )* closing_block
 
 private shape ::= 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
@@ -402,7 +429,22 @@ private any_keyword ::= "workspace"
  | "mermaid"
  | "kroki"
  | shape
- | "relationship"
+ | "icon"
+ | "width"
+ | "height"
+ | "background"
+ | COLOR
+ | "stroke"
+ | "strokeWidth"
+ | "fontSize"
+ | "border"
+ | "solid"
+ | "dashed"
+ | "dotted"
+ | "opacity"
+ | "metadata"
+ | "true"
+ | "false"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

@@ -17,6 +17,9 @@ public interface StructurizrDslRhsRelationStatement extends PsiElement {
   StructurizrDslTag getTag();
 
   @Nullable
+  PsiElement getColor();
+
+  @Nullable
   PsiElement getQuotedText();
 
   @Nullable
