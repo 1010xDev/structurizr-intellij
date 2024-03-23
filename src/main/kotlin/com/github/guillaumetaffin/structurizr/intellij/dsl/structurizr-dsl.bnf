@@ -107,6 +107,12 @@
     METADATA="metadata"
     TRUE="true"
     FALSE="false"
+    POSITION="position"
+    ROUTING="routing"
+    DIRECT="Direct"
+    ORTHOGONAL="Orthogonal"
+    CURVED="Curved"
+    THICKNESS="thickness"
 
     EQ="="
 
@@ -336,25 +342,53 @@ private system_landscape_view_block_statement ::= include_statement
 styles_statement ::= 'styles' styles_block
 styles_block ::= opening_block (element_style | relationship_style)* closing_block
 
-element_style ::= 'element' tag opening_block ( 'shape' shape
- | 'icon' any_text LINE_BREAK+
- | 'width' any_text LINE_BREAK+
- | 'height' any_text LINE_BREAK+
- | 'background' any_text LINE_BREAK+
- | COLOR any_text LINE_BREAK+
- | 'stroke' any_text LINE_BREAK+
- | 'strokeWidth' any_text LINE_BREAK+
- | 'fontSize' any_text LINE_BREAK+
- | 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
- | 'opacity' any_text LINE_BREAK+
- | 'metadata' ('true' | 'false') LINE_BREAK+
+element_style ::= 'element' tag opening_block ( shape_statement
+ | icon_statement
+ | width_statement
+ | height_statement
+ | background_statement
+ | color_statement
+ | stroke_statement
+ | stroke_width_statement
+ | font_size_statement
+ | border_statement
+ | opacity_statement
+ | metadata_statement
  | properties_statement
 )* closing_block
 
-private shape ::= 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
+metadata_statement ::= 'metadata' ('true' | 'false') LINE_BREAK+
+opacity_statement ::= 'opacity' any_text LINE_BREAK+
+border_statement ::= 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
+font_size_statement ::= 'fontSize' any_text LINE_BREAK+
+stroke_width_statement ::= 'strokeWidth' any_text LINE_BREAK+
+stroke_statement ::= 'stroke' any_text LINE_BREAK+
+background_statement ::= 'background' any_text LINE_BREAK+
+height_statement ::= 'height' any_text LINE_BREAK+
+width_statement ::= 'width' any_text LINE_BREAK+
+icon_statement ::= 'icon' any_text LINE_BREAK+
+shape_statement ::= 'shape' shape LINE_BREAK+
+color_statement ::= COLOR any_text LINE_BREAK+
 
-relationship_style ::= 'relationship'
+shape ::= 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
 
+relationship_style ::= 'relationship' tag (relationship_style_block | LINE_BREAK+)
+relationship_style_block ::= opening_block relationship_style_block_statement* closing_block
+private relationship_style_block_statement ::= (
+thickness_statement
+ | color_statement
+ | border_statement
+ | routing_statement
+ | font_size_statement
+ | width_statement
+ | position_statement
+ | opacity_statement
+ | properties_statement
+)
+
+position_statement ::= 'position' any_text LINE_BREAK+
+routing_statement ::= 'routing' ('Direct' | 'Orthogonal' | 'Curved') LINE_BREAK+
+thickness_statement ::= 'thickness' any_text LINE_BREAK+
 
 include_statement ::= include_element_statement | include_relationship_statement
 include_element_statement ::= 'include' ('*' | id | any_text)+ LINE_BREAK+
@@ -445,6 +479,12 @@ private any_keyword ::= "workspace"
  | "metadata"
  | "true"
  | "false"
+ | "position"
+ | "routing"
+ | "Direct"
+ | "Orthogonal"
+ | "Curved"
+ | "thickness"
 
 opening_block ::= "{" LINE_BREAK+
 closing_block ::= "}" (LINE_BREAK+ | <<eof>>)

@@ -113,6 +113,12 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "metadata"                   { return Tokens.METADATA; }
   "true"                       { return Tokens.TRUE; }
   "false"                      { return Tokens.FALSE; }
+  "position"                   { return Tokens.POSITION; }
+  "routing"                    { return Tokens.ROUTING; }
+  "Direct"                     { return Tokens.DIRECT; }
+  "Orthogonal"                 { return Tokens.ORTHOGONAL; }
+  "Curved"                     { return Tokens.CURVED; }
+  "thickness"                  { return Tokens.THICKNESS; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

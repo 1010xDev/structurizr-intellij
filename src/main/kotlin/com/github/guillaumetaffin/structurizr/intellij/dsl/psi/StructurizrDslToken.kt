@@ -97,6 +97,12 @@ class Opacity : StructurizrKeyword("opacity")
 class MetadataKw : StructurizrKeyword("metadata")
 class True : StructurizrKeyword("true")
 class False : StructurizrKeyword("false")
+class Position : StructurizrKeyword("position")
+class Routing : StructurizrKeyword("routing")
+class Direct : StructurizrKeyword("Direct")
+class Orthogonal : StructurizrKeyword("Orthogonal")
+class Curved : StructurizrKeyword("Curved")
+class Thickness : StructurizrKeyword("thickness")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -372,6 +378,24 @@ data object Tokens {
 
     @JvmField
     val FALSE = False()
+
+    @JvmField
+    val POSITION = Position()
+
+    @JvmField
+    val ROUTING = Routing()
+
+    @JvmField
+    val DIRECT = Direct()
+
+    @JvmField
+    val ORTHOGONAL = Orthogonal()
+
+    @JvmField
+    val CURVED = Curved()
+
+    @JvmField
+    val THICKNESS = Thickness()
 
     @JvmField
     val EQ = Equal()
