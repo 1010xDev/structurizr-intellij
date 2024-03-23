@@ -14,7 +14,12 @@ public interface StructurizrDslTypes {
   IElementType AUTOLAYOUT_STATEMENT = new StructurizrDslElementType("AUTOLAYOUT_STATEMENT");
   IElementType A_DESCRIPTION = new StructurizrDslElementType("A_DESCRIPTION");
   IElementType A_NAME = new StructurizrDslElementType("A_NAME");
+  IElementType BACKGROUND_STATEMENT = new StructurizrDslElementType("BACKGROUND_STATEMENT");
+  IElementType BORDER_STATEMENT = new StructurizrDslElementType("BORDER_STATEMENT");
+  IElementType BRANDING_BLOCK = new StructurizrDslElementType("BRANDING_BLOCK");
+  IElementType BRANDING_STATEMENT = new StructurizrDslElementType("BRANDING_STATEMENT");
   IElementType CLOSING_BLOCK = new StructurizrDslElementType("CLOSING_BLOCK");
+  IElementType COLOR_STATEMENT = new StructurizrDslElementType("COLOR_STATEMENT");
   IElementType COMMON_VIEW_BLOCK = new StructurizrDslElementType("COMMON_VIEW_BLOCK");
   IElementType COMPONENT_BLOCK = new StructurizrDslElementType("COMPONENT_BLOCK");
   IElementType COMPONENT_STATEMENT = new StructurizrDslElementType("COMPONENT_STATEMENT");
@@ -42,10 +47,16 @@ public interface StructurizrDslTypes {
   IElementType ELEMENT_STATEMENT = new StructurizrDslElementType("ELEMENT_STATEMENT");
   IElementType ELEMENT_STYLE = new StructurizrDslElementType("ELEMENT_STYLE");
   IElementType EXCLUDE_STATEMENT = new StructurizrDslElementType("EXCLUDE_STATEMENT");
+  IElementType EXTEND_BLOCK = new StructurizrDslElementType("EXTEND_BLOCK");
+  IElementType EXTEND_STATEMENT = new StructurizrDslElementType("EXTEND_STATEMENT");
   IElementType FILTERED_VIEW_BLOCK = new StructurizrDslElementType("FILTERED_VIEW_BLOCK");
   IElementType FILTERED_VIEW_STATEMENT = new StructurizrDslElementType("FILTERED_VIEW_STATEMENT");
+  IElementType FONT_SIZE_STATEMENT = new StructurizrDslElementType("FONT_SIZE_STATEMENT");
+  IElementType FONT_STATEMENT = new StructurizrDslElementType("FONT_STATEMENT");
   IElementType GROUP_STATEMENTS = new StructurizrDslElementType("GROUP_STATEMENTS");
   IElementType HEALTH_CHECK_STATEMENT = new StructurizrDslElementType("HEALTH_CHECK_STATEMENT");
+  IElementType HEIGHT_STATEMENT = new StructurizrDslElementType("HEIGHT_STATEMENT");
+  IElementType ICON_STATEMENT = new StructurizrDslElementType("ICON_STATEMENT");
   IElementType ID = new StructurizrDslElementType("ID");
   IElementType IDENTIFIERS_STATEMENT = new StructurizrDslElementType("IDENTIFIERS_STATEMENT");
   IElementType IMAGE_VIEW_BLOCK = new StructurizrDslElementType("IMAGE_VIEW_BLOCK");
@@ -57,23 +68,32 @@ public interface StructurizrDslTypes {
   IElementType INFRASTRUCTURE_NODE_STATEMENT = new StructurizrDslElementType("INFRASTRUCTURE_NODE_STATEMENT");
   IElementType INSTANCES_STATEMENT = new StructurizrDslElementType("INSTANCES_STATEMENT");
   IElementType LHS_RELATION_STATEMENT = new StructurizrDslElementType("LHS_RELATION_STATEMENT");
+  IElementType LOGO_STATEMENT = new StructurizrDslElementType("LOGO_STATEMENT");
+  IElementType METADATA_STATEMENT = new StructurizrDslElementType("METADATA_STATEMENT");
   IElementType MODEL_STATEMENT = new StructurizrDslElementType("MODEL_STATEMENT");
   IElementType NAME_STATEMENT = new StructurizrDslElementType("NAME_STATEMENT");
+  IElementType OPACITY_STATEMENT = new StructurizrDslElementType("OPACITY_STATEMENT");
   IElementType OPENING_BLOCK = new StructurizrDslElementType("OPENING_BLOCK");
   IElementType PERSON_BLOCK = new StructurizrDslElementType("PERSON_BLOCK");
   IElementType PERSON_STATEMENT = new StructurizrDslElementType("PERSON_STATEMENT");
   IElementType PERSPECTIVES_STATEMENT = new StructurizrDslElementType("PERSPECTIVES_STATEMENT");
   IElementType PERSPECTIVE_STATEMENT = new StructurizrDslElementType("PERSPECTIVE_STATEMENT");
+  IElementType POSITION_STATEMENT = new StructurizrDslElementType("POSITION_STATEMENT");
   IElementType PROPERTIES_STATEMENT = new StructurizrDslElementType("PROPERTIES_STATEMENT");
   IElementType PROPERTY_STATEMENT = new StructurizrDslElementType("PROPERTY_STATEMENT");
   IElementType RELATIONSHIP_STYLE = new StructurizrDslElementType("RELATIONSHIP_STYLE");
+  IElementType RELATIONSHIP_STYLE_BLOCK = new StructurizrDslElementType("RELATIONSHIP_STYLE_BLOCK");
   IElementType RELATION_BLOCK = new StructurizrDslElementType("RELATION_BLOCK");
   IElementType RELATION_STATEMENT = new StructurizrDslElementType("RELATION_STATEMENT");
   IElementType RHS_RELATION_STATEMENT = new StructurizrDslElementType("RHS_RELATION_STATEMENT");
+  IElementType ROUTING_STATEMENT = new StructurizrDslElementType("ROUTING_STATEMENT");
+  IElementType SHAPE_STATEMENT = new StructurizrDslElementType("SHAPE_STATEMENT");
   IElementType SOFTWARE_SYSTEM_BLOCK = new StructurizrDslElementType("SOFTWARE_SYSTEM_BLOCK");
   IElementType SOFTWARE_SYSTEM_INSTANCE_BLOCK = new StructurizrDslElementType("SOFTWARE_SYSTEM_INSTANCE_BLOCK");
   IElementType SOFTWARE_SYSTEM_INSTANCE_STATEMENT = new StructurizrDslElementType("SOFTWARE_SYSTEM_INSTANCE_STATEMENT");
   IElementType SOFTWARE_SYSTEM_STATEMENT = new StructurizrDslElementType("SOFTWARE_SYSTEM_STATEMENT");
+  IElementType STROKE_STATEMENT = new StructurizrDslElementType("STROKE_STATEMENT");
+  IElementType STROKE_WIDTH_STATEMENT = new StructurizrDslElementType("STROKE_WIDTH_STATEMENT");
   IElementType STYLES_BLOCK = new StructurizrDslElementType("STYLES_BLOCK");
   IElementType STYLES_STATEMENT = new StructurizrDslElementType("STYLES_STATEMENT");
   IElementType SYSTEM_CONTEXT_VIEW_STATEMENT = new StructurizrDslElementType("SYSTEM_CONTEXT_VIEW_STATEMENT");
@@ -81,12 +101,18 @@ public interface StructurizrDslTypes {
   IElementType TAG = new StructurizrDslElementType("TAG");
   IElementType TAGS_STATEMENT = new StructurizrDslElementType("TAGS_STATEMENT");
   IElementType TECHNOLOGY_STATEMENT = new StructurizrDslElementType("TECHNOLOGY_STATEMENT");
+  IElementType TERMINOLOGY_BLOCK = new StructurizrDslElementType("TERMINOLOGY_BLOCK");
+  IElementType TERMINOLOGY_STATEMENT = new StructurizrDslElementType("TERMINOLOGY_STATEMENT");
+  IElementType THEMES_STATEMENT = new StructurizrDslElementType("THEMES_STATEMENT");
+  IElementType THEME_STATEMENT = new StructurizrDslElementType("THEME_STATEMENT");
+  IElementType THICKNESS_STATEMENT = new StructurizrDslElementType("THICKNESS_STATEMENT");
   IElementType TITLE_STATEMENT = new StructurizrDslElementType("TITLE_STATEMENT");
   IElementType URL_STATEMENT = new StructurizrDslElementType("URL_STATEMENT");
   IElementType VIEWS_BLOCK = new StructurizrDslElementType("VIEWS_BLOCK");
   IElementType VIEWS_BLOCK_STATEMENT = new StructurizrDslElementType("VIEWS_BLOCK_STATEMENT");
   IElementType VIEWS_STATEMENT = new StructurizrDslElementType("VIEWS_STATEMENT");
   IElementType VIEW_KEY = new StructurizrDslElementType("VIEW_KEY");
+  IElementType WIDTH_STATEMENT = new StructurizrDslElementType("WIDTH_STATEMENT");
   IElementType WORKSPACE_DEFINITION = new StructurizrDslElementType("WORKSPACE_DEFINITION");
   IElementType WORKSPACE_STATEMENT = new StructurizrDslElementType("WORKSPACE_STATEMENT");
 
@@ -111,8 +137,23 @@ public interface StructurizrDslTypes {
       else if (type == A_NAME) {
         return new StructurizrDslANameImpl(node);
       }
+      else if (type == BACKGROUND_STATEMENT) {
+        return new StructurizrDslBackgroundStatementImpl(node);
+      }
+      else if (type == BORDER_STATEMENT) {
+        return new StructurizrDslBorderStatementImpl(node);
+      }
+      else if (type == BRANDING_BLOCK) {
+        return new StructurizrDslBrandingBlockImpl(node);
+      }
+      else if (type == BRANDING_STATEMENT) {
+        return new StructurizrDslBrandingStatementImpl(node);
+      }
       else if (type == CLOSING_BLOCK) {
         return new StructurizrDslClosingBlockImpl(node);
+      }
+      else if (type == COLOR_STATEMENT) {
+        return new StructurizrDslColorStatementImpl(node);
       }
       else if (type == COMMON_VIEW_BLOCK) {
         return new StructurizrDslCommonViewBlockImpl(node);
@@ -195,17 +236,35 @@ public interface StructurizrDslTypes {
       else if (type == EXCLUDE_STATEMENT) {
         return new StructurizrDslExcludeStatementImpl(node);
       }
+      else if (type == EXTEND_BLOCK) {
+        return new StructurizrDslExtendBlockImpl(node);
+      }
+      else if (type == EXTEND_STATEMENT) {
+        return new StructurizrDslExtendStatementImpl(node);
+      }
       else if (type == FILTERED_VIEW_BLOCK) {
         return new StructurizrDslFilteredViewBlockImpl(node);
       }
       else if (type == FILTERED_VIEW_STATEMENT) {
         return new StructurizrDslFilteredViewStatementImpl(node);
       }
+      else if (type == FONT_SIZE_STATEMENT) {
+        return new StructurizrDslFontSizeStatementImpl(node);
+      }
+      else if (type == FONT_STATEMENT) {
+        return new StructurizrDslFontStatementImpl(node);
+      }
       else if (type == GROUP_STATEMENTS) {
         return new StructurizrDslGroupStatementsImpl(node);
       }
       else if (type == HEALTH_CHECK_STATEMENT) {
         return new StructurizrDslHealthCheckStatementImpl(node);
+      }
+      else if (type == HEIGHT_STATEMENT) {
+        return new StructurizrDslHeightStatementImpl(node);
+      }
+      else if (type == ICON_STATEMENT) {
+        return new StructurizrDslIconStatementImpl(node);
       }
       else if (type == ID) {
         return new StructurizrDslIdImpl(node);
@@ -240,11 +299,20 @@ public interface StructurizrDslTypes {
       else if (type == LHS_RELATION_STATEMENT) {
         return new StructurizrDslLhsRelationStatementImpl(node);
       }
+      else if (type == LOGO_STATEMENT) {
+        return new StructurizrDslLogoStatementImpl(node);
+      }
+      else if (type == METADATA_STATEMENT) {
+        return new StructurizrDslMetadataStatementImpl(node);
+      }
       else if (type == MODEL_STATEMENT) {
         return new StructurizrDslModelStatementImpl(node);
       }
       else if (type == NAME_STATEMENT) {
         return new StructurizrDslNameStatementImpl(node);
+      }
+      else if (type == OPACITY_STATEMENT) {
+        return new StructurizrDslOpacityStatementImpl(node);
       }
       else if (type == OPENING_BLOCK) {
         return new StructurizrDslOpeningBlockImpl(node);
@@ -261,6 +329,9 @@ public interface StructurizrDslTypes {
       else if (type == PERSPECTIVE_STATEMENT) {
         return new StructurizrDslPerspectiveStatementImpl(node);
       }
+      else if (type == POSITION_STATEMENT) {
+        return new StructurizrDslPositionStatementImpl(node);
+      }
       else if (type == PROPERTIES_STATEMENT) {
         return new StructurizrDslPropertiesStatementImpl(node);
       }
@@ -270,6 +341,9 @@ public interface StructurizrDslTypes {
       else if (type == RELATIONSHIP_STYLE) {
         return new StructurizrDslRelationshipStyleImpl(node);
       }
+      else if (type == RELATIONSHIP_STYLE_BLOCK) {
+        return new StructurizrDslRelationshipStyleBlockImpl(node);
+      }
       else if (type == RELATION_BLOCK) {
         return new StructurizrDslRelationBlockImpl(node);
       }
@@ -278,6 +352,12 @@ public interface StructurizrDslTypes {
       }
       else if (type == RHS_RELATION_STATEMENT) {
         return new StructurizrDslRhsRelationStatementImpl(node);
+      }
+      else if (type == ROUTING_STATEMENT) {
+        return new StructurizrDslRoutingStatementImpl(node);
+      }
+      else if (type == SHAPE_STATEMENT) {
+        return new StructurizrDslShapeStatementImpl(node);
       }
       else if (type == SOFTWARE_SYSTEM_BLOCK) {
         return new StructurizrDslSoftwareSystemBlockImpl(node);
@@ -290,6 +370,12 @@ public interface StructurizrDslTypes {
       }
       else if (type == SOFTWARE_SYSTEM_STATEMENT) {
         return new StructurizrDslSoftwareSystemStatementImpl(node);
+      }
+      else if (type == STROKE_STATEMENT) {
+        return new StructurizrDslStrokeStatementImpl(node);
+      }
+      else if (type == STROKE_WIDTH_STATEMENT) {
+        return new StructurizrDslStrokeWidthStatementImpl(node);
       }
       else if (type == STYLES_BLOCK) {
         return new StructurizrDslStylesBlockImpl(node);
@@ -312,6 +398,21 @@ public interface StructurizrDslTypes {
       else if (type == TECHNOLOGY_STATEMENT) {
         return new StructurizrDslTechnologyStatementImpl(node);
       }
+      else if (type == TERMINOLOGY_BLOCK) {
+        return new StructurizrDslTerminologyBlockImpl(node);
+      }
+      else if (type == TERMINOLOGY_STATEMENT) {
+        return new StructurizrDslTerminologyStatementImpl(node);
+      }
+      else if (type == THEMES_STATEMENT) {
+        return new StructurizrDslThemesStatementImpl(node);
+      }
+      else if (type == THEME_STATEMENT) {
+        return new StructurizrDslThemeStatementImpl(node);
+      }
+      else if (type == THICKNESS_STATEMENT) {
+        return new StructurizrDslThicknessStatementImpl(node);
+      }
       else if (type == TITLE_STATEMENT) {
         return new StructurizrDslTitleStatementImpl(node);
       }
@@ -329,6 +430,9 @@ public interface StructurizrDslTypes {
       }
       else if (type == VIEW_KEY) {
         return new StructurizrDslViewKeyImpl(node);
+      }
+      else if (type == WIDTH_STATEMENT) {
+        return new StructurizrDslWidthStatementImpl(node);
       }
       else if (type == WORKSPACE_DEFINITION) {
         return new StructurizrDslWorkspaceDefinitionImpl(node);

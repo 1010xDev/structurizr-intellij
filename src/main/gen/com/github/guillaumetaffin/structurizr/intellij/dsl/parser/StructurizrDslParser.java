@@ -233,6 +233,20 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | "metadata"
   //  | "true"
   //  | "false"
+  //  | "position"
+  //  | "routing"
+  //  | "Direct"
+  //  | "Orthogonal"
+  //  | "Curved"
+  //  | "thickness"
+  //  | "theme"
+  //  | "themes"
+  //  | "branding"
+  //  | "font"
+  //  | "logo"
+  //  | "terminology"
+  //  | "!extend"
+  //  | "!ref"
   static boolean any_keyword(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "any_keyword")) return false;
     boolean r;
@@ -304,6 +318,20 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, METADATA);
     if (!r) r = consumeToken(b, TRUE);
     if (!r) r = consumeToken(b, FALSE);
+    if (!r) r = consumeToken(b, POSITION);
+    if (!r) r = consumeToken(b, ROUTING);
+    if (!r) r = consumeToken(b, DIRECT);
+    if (!r) r = consumeToken(b, ORTHOGONAL);
+    if (!r) r = consumeToken(b, CURVED);
+    if (!r) r = consumeToken(b, THICKNESS);
+    if (!r) r = consumeToken(b, THEME);
+    if (!r) r = consumeToken(b, THEMES);
+    if (!r) r = consumeToken(b, BRANDING);
+    if (!r) r = consumeToken(b, FONT);
+    if (!r) r = consumeToken(b, LOGO);
+    if (!r) r = consumeToken(b, TERMINOLOGY);
+    if (!r) r = consumeToken(b, EXTEND);
+    if (!r) r = consumeToken(b, REF);
     return r;
   }
 
@@ -375,6 +403,132 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'background' any_text LINE_BREAK+
+  public static boolean background_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "background_statement")) return false;
+    if (!nextTokenIs(b, BACKGROUND)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, BACKGROUND);
+    r = r && any_text(b, l + 1);
+    r = r && background_statement_2(b, l + 1);
+    exit_section_(b, m, BACKGROUND_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean background_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "background_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "background_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
+  public static boolean border_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "border_statement")) return false;
+    if (!nextTokenIs(b, BORDER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, BORDER);
+    r = r && border_statement_1(b, l + 1);
+    r = r && border_statement_2(b, l + 1);
+    exit_section_(b, m, BORDER_STATEMENT, r);
+    return r;
+  }
+
+  // 'solid' | 'dashed' | 'dotted'
+  private static boolean border_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "border_statement_1")) return false;
+    boolean r;
+    r = consumeToken(b, SOLID);
+    if (!r) r = consumeToken(b, DASHED);
+    if (!r) r = consumeToken(b, DOTTED);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean border_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "border_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "border_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // opening_block (
+  // logo_statement
+  //  | font_statement
+  // )+ closing_block
+  public static boolean branding_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "branding_block")) return false;
+    if (!nextTokenIs(b, OPEN_PARENS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = opening_block(b, l + 1);
+    r = r && branding_block_1(b, l + 1);
+    r = r && closing_block(b, l + 1);
+    exit_section_(b, m, BRANDING_BLOCK, r);
+    return r;
+  }
+
+  // (
+  // logo_statement
+  //  | font_statement
+  // )+
+  private static boolean branding_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "branding_block_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = branding_block_1_0(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!branding_block_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "branding_block_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // logo_statement
+  //  | font_statement
+  private static boolean branding_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "branding_block_1_0")) return false;
+    boolean r;
+    r = logo_statement(b, l + 1);
+    if (!r) r = font_statement(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'branding' branding_block
+  public static boolean branding_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "branding_statement")) return false;
+    if (!nextTokenIs(b, BRANDING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, BRANDING);
+    r = r && branding_block(b, l + 1);
+    exit_section_(b, m, BRANDING_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // "}" (LINE_BREAK+ | <<eof>>)
   public static boolean closing_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "closing_block")) return false;
@@ -408,6 +562,35 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
       int c = current_position_(b);
       if (!consumeToken(b, LINE_BREAK)) break;
       if (!empty_element_parsed_guard_(b, "closing_block_1_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // COLOR any_text LINE_BREAK+
+  public static boolean color_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "color_statement")) return false;
+    if (!nextTokenIs(b, COLOR)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLOR);
+    r = r && any_text(b, l + 1);
+    r = r && color_statement_2(b, l + 1);
+    exit_section_(b, m, COLOR_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean color_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "color_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "color_statement_2", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
@@ -473,6 +656,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | properties_statement
   //  | perspectives_statement
   //  | relation_statement
+  //  | extend_statement
   static boolean component_block_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "component_block_statement")) return false;
     boolean r;
@@ -485,6 +669,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = properties_statement(b, l + 1);
     if (!r) r = perspectives_statement(b, l + 1);
     if (!r) r = relation_statement(b, l + 1);
+    if (!r) r = extend_statement(b, l + 1);
     return r;
   }
 
@@ -633,6 +818,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | properties_statement
   //  | perspectives_statement
   //  | relation_statement
+  //  | extend_statement
   static boolean container_block_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "container_block_statement")) return false;
     boolean r;
@@ -648,6 +834,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = properties_statement(b, l + 1);
     if (!r) r = perspectives_statement(b, l + 1);
     if (!r) r = relation_statement(b, l + 1);
+    if (!r) r = extend_statement(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -1502,18 +1689,18 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'element' tag opening_block ( 'shape' shape
-  //  | 'icon' any_text LINE_BREAK+
-  //  | 'width' any_text LINE_BREAK+
-  //  | 'height' any_text LINE_BREAK+
-  //  | 'background' any_text LINE_BREAK+
-  //  | COLOR any_text LINE_BREAK+
-  //  | 'stroke' any_text LINE_BREAK+
-  //  | 'strokeWidth' any_text LINE_BREAK+
-  //  | 'fontSize' any_text LINE_BREAK+
-  //  | 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
-  //  | 'opacity' any_text LINE_BREAK+
-  //  | 'metadata' ('true' | 'false') LINE_BREAK+
+  // 'element' tag opening_block ( shape_statement
+  //  | icon_statement
+  //  | width_statement
+  //  | height_statement
+  //  | background_statement
+  //  | color_statement
+  //  | stroke_statement
+  //  | stroke_width_statement
+  //  | font_size_statement
+  //  | border_statement
+  //  | opacity_statement
+  //  | metadata_statement
   //  | properties_statement
   // )* closing_block
   public static boolean element_style(PsiBuilder b, int l) {
@@ -1530,18 +1717,18 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ( 'shape' shape
-  //  | 'icon' any_text LINE_BREAK+
-  //  | 'width' any_text LINE_BREAK+
-  //  | 'height' any_text LINE_BREAK+
-  //  | 'background' any_text LINE_BREAK+
-  //  | COLOR any_text LINE_BREAK+
-  //  | 'stroke' any_text LINE_BREAK+
-  //  | 'strokeWidth' any_text LINE_BREAK+
-  //  | 'fontSize' any_text LINE_BREAK+
-  //  | 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
-  //  | 'opacity' any_text LINE_BREAK+
-  //  | 'metadata' ('true' | 'false') LINE_BREAK+
+  // ( shape_statement
+  //  | icon_statement
+  //  | width_statement
+  //  | height_statement
+  //  | background_statement
+  //  | color_statement
+  //  | stroke_statement
+  //  | stroke_width_statement
+  //  | font_size_statement
+  //  | border_statement
+  //  | opacity_statement
+  //  | metadata_statement
   //  | properties_statement
   // )*
   private static boolean element_style_3(PsiBuilder b, int l) {
@@ -1554,364 +1741,35 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // 'shape' shape
-  //  | 'icon' any_text LINE_BREAK+
-  //  | 'width' any_text LINE_BREAK+
-  //  | 'height' any_text LINE_BREAK+
-  //  | 'background' any_text LINE_BREAK+
-  //  | COLOR any_text LINE_BREAK+
-  //  | 'stroke' any_text LINE_BREAK+
-  //  | 'strokeWidth' any_text LINE_BREAK+
-  //  | 'fontSize' any_text LINE_BREAK+
-  //  | 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
-  //  | 'opacity' any_text LINE_BREAK+
-  //  | 'metadata' ('true' | 'false') LINE_BREAK+
+  // shape_statement
+  //  | icon_statement
+  //  | width_statement
+  //  | height_statement
+  //  | background_statement
+  //  | color_statement
+  //  | stroke_statement
+  //  | stroke_width_statement
+  //  | font_size_statement
+  //  | border_statement
+  //  | opacity_statement
+  //  | metadata_statement
   //  | properties_statement
   private static boolean element_style_3_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "element_style_3_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = element_style_3_0_0(b, l + 1);
-    if (!r) r = element_style_3_0_1(b, l + 1);
-    if (!r) r = element_style_3_0_2(b, l + 1);
-    if (!r) r = element_style_3_0_3(b, l + 1);
-    if (!r) r = element_style_3_0_4(b, l + 1);
-    if (!r) r = element_style_3_0_5(b, l + 1);
-    if (!r) r = element_style_3_0_6(b, l + 1);
-    if (!r) r = element_style_3_0_7(b, l + 1);
-    if (!r) r = element_style_3_0_8(b, l + 1);
-    if (!r) r = element_style_3_0_9(b, l + 1);
-    if (!r) r = element_style_3_0_10(b, l + 1);
-    if (!r) r = element_style_3_0_11(b, l + 1);
+    r = shape_statement(b, l + 1);
+    if (!r) r = icon_statement(b, l + 1);
+    if (!r) r = width_statement(b, l + 1);
+    if (!r) r = height_statement(b, l + 1);
+    if (!r) r = background_statement(b, l + 1);
+    if (!r) r = color_statement(b, l + 1);
+    if (!r) r = stroke_statement(b, l + 1);
+    if (!r) r = stroke_width_statement(b, l + 1);
+    if (!r) r = font_size_statement(b, l + 1);
+    if (!r) r = border_statement(b, l + 1);
+    if (!r) r = opacity_statement(b, l + 1);
+    if (!r) r = metadata_statement(b, l + 1);
     if (!r) r = properties_statement(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'shape' shape
-  private static boolean element_style_3_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, SHAPE);
-    r = r && shape(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'icon' any_text LINE_BREAK+
-  private static boolean element_style_3_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, ICON);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_1_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_1_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_1_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_1_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'width' any_text LINE_BREAK+
-  private static boolean element_style_3_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, WIDTH);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_2_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_2_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_2_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_2_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'height' any_text LINE_BREAK+
-  private static boolean element_style_3_0_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_3")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, HEIGHT);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_3_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_3_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_3_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_3_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'background' any_text LINE_BREAK+
-  private static boolean element_style_3_0_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_4")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, BACKGROUND);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_4_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_4_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_4_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_4_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // COLOR any_text LINE_BREAK+
-  private static boolean element_style_3_0_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_5")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COLOR);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_5_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_5_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_5_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_5_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'stroke' any_text LINE_BREAK+
-  private static boolean element_style_3_0_6(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_6")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, STROKE);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_6_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_6_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_6_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_6_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'strokeWidth' any_text LINE_BREAK+
-  private static boolean element_style_3_0_7(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_7")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, STROKE_WIDTH);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_7_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_7_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_7_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_7_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'fontSize' any_text LINE_BREAK+
-  private static boolean element_style_3_0_8(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_8")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, FONT_SIZE);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_8_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_8_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_8_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_8_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
-  private static boolean element_style_3_0_9(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_9")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, BORDER);
-    r = r && element_style_3_0_9_1(b, l + 1);
-    r = r && element_style_3_0_9_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'solid' | 'dashed' | 'dotted'
-  private static boolean element_style_3_0_9_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_9_1")) return false;
-    boolean r;
-    r = consumeToken(b, SOLID);
-    if (!r) r = consumeToken(b, DASHED);
-    if (!r) r = consumeToken(b, DOTTED);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_9_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_9_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_9_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'opacity' any_text LINE_BREAK+
-  private static boolean element_style_3_0_10(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_10")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, OPACITY);
-    r = r && any_text(b, l + 1);
-    r = r && element_style_3_0_10_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_10_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_10_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_10_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'metadata' ('true' | 'false') LINE_BREAK+
-  private static boolean element_style_3_0_11(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_11")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, METADATA);
-    r = r && element_style_3_0_11_1(b, l + 1);
-    r = r && element_style_3_0_11_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // 'true' | 'false'
-  private static boolean element_style_3_0_11_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_11_1")) return false;
-    boolean r;
-    r = consumeToken(b, TRUE);
-    if (!r) r = consumeToken(b, FALSE);
-    return r;
-  }
-
-  // LINE_BREAK+
-  private static boolean element_style_3_0_11_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_style_3_0_11_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_BREAK);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, LINE_BREAK)) break;
-      if (!empty_element_parsed_guard_(b, "element_style_3_0_11_2", c)) break;
-    }
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1963,6 +1821,126 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
       int c = current_position_(b);
       if (!consumeToken(b, LINE_BREAK)) break;
       if (!empty_element_parsed_guard_(b, "exclude_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // opening_block (
+  //     model_block_statement
+  //     | software_system_block_statement
+  //     | person_block_statement
+  //     | container_block_statement
+  //     | component_block_statement
+  // )* closing_block
+  public static boolean extend_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_block")) return false;
+    if (!nextTokenIs(b, OPEN_PARENS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = opening_block(b, l + 1);
+    r = r && extend_block_1(b, l + 1);
+    r = r && closing_block(b, l + 1);
+    exit_section_(b, m, EXTEND_BLOCK, r);
+    return r;
+  }
+
+  // (
+  //     model_block_statement
+  //     | software_system_block_statement
+  //     | person_block_statement
+  //     | container_block_statement
+  //     | component_block_statement
+  // )*
+  private static boolean extend_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_block_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!extend_block_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "extend_block_1", c)) break;
+    }
+    return true;
+  }
+
+  // model_block_statement
+  //     | software_system_block_statement
+  //     | person_block_statement
+  //     | container_block_statement
+  //     | component_block_statement
+  private static boolean extend_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_block_1_0")) return false;
+    boolean r;
+    r = model_block_statement(b, l + 1);
+    if (!r) r = software_system_block_statement(b, l + 1);
+    if (!r) r = person_block_statement(b, l + 1);
+    if (!r) r = container_block_statement(b, l + 1);
+    if (!r) r = component_block_statement(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // (id '=')? ('!extend' | '!ref') id (extend_block | LINE_BREAK+)
+  public static boolean extend_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_statement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, EXTEND_STATEMENT, "<extend statement>");
+    r = extend_statement_0(b, l + 1);
+    r = r && extend_statement_1(b, l + 1);
+    r = r && id(b, l + 1);
+    r = r && extend_statement_3(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (id '=')?
+  private static boolean extend_statement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_statement_0")) return false;
+    extend_statement_0_0(b, l + 1);
+    return true;
+  }
+
+  // id '='
+  private static boolean extend_statement_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_statement_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = id(b, l + 1);
+    r = r && consumeToken(b, EQ);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // '!extend' | '!ref'
+  private static boolean extend_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_statement_1")) return false;
+    boolean r;
+    r = consumeToken(b, EXTEND);
+    if (!r) r = consumeToken(b, REF);
+    return r;
+  }
+
+  // extend_block | LINE_BREAK+
+  private static boolean extend_statement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_statement_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = extend_block(b, l + 1);
+    if (!r) r = extend_statement_3_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean extend_statement_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extend_statement_3_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "extend_statement_3_1", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
@@ -2072,6 +2050,72 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'fontSize' any_text LINE_BREAK+
+  public static boolean font_size_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "font_size_statement")) return false;
+    if (!nextTokenIs(b, FONT_SIZE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, FONT_SIZE);
+    r = r && any_text(b, l + 1);
+    r = r && font_size_statement_2(b, l + 1);
+    exit_section_(b, m, FONT_SIZE_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean font_size_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "font_size_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "font_size_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'font' a_name any_text? LINE_BREAK+
+  public static boolean font_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "font_statement")) return false;
+    if (!nextTokenIs(b, FONT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, FONT);
+    r = r && a_name(b, l + 1);
+    r = r && font_statement_2(b, l + 1);
+    r = r && font_statement_3(b, l + 1);
+    exit_section_(b, m, FONT_STATEMENT, r);
+    return r;
+  }
+
+  // any_text?
+  private static boolean font_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "font_statement_2")) return false;
+    any_text(b, l + 1);
+    return true;
+  }
+
+  // LINE_BREAK+
+  private static boolean font_statement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "font_statement_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "font_statement_3", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // "group" any_text opening_block <<level_statements>>* closing_block
   public static boolean group_statements(PsiBuilder b, int l, Parser _level_statements) {
     if (!recursion_guard_(b, l, "group_statements")) return false;
@@ -2126,6 +2170,64 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "health_check_statement_4")) return false;
     any_text(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // 'height' any_text LINE_BREAK+
+  public static boolean height_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "height_statement")) return false;
+    if (!nextTokenIs(b, HEIGHT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, HEIGHT);
+    r = r && any_text(b, l + 1);
+    r = r && height_statement_2(b, l + 1);
+    exit_section_(b, m, HEIGHT_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean height_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "height_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "height_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'icon' any_text LINE_BREAK+
+  public static boolean icon_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "icon_statement")) return false;
+    if (!nextTokenIs(b, ICON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ICON);
+    r = r && any_text(b, l + 1);
+    r = r && icon_statement_2(b, l + 1);
+    exit_section_(b, m, ICON_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean icon_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "icon_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "icon_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -2607,12 +2709,80 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'logo' any_text LINE_BREAK+
+  public static boolean logo_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "logo_statement")) return false;
+    if (!nextTokenIs(b, LOGO)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LOGO);
+    r = r && any_text(b, l + 1);
+    r = r && logo_statement_2(b, l + 1);
+    exit_section_(b, m, LOGO_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean logo_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "logo_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "logo_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'metadata' ('true' | 'false') LINE_BREAK+
+  public static boolean metadata_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "metadata_statement")) return false;
+    if (!nextTokenIs(b, METADATA)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, METADATA);
+    r = r && metadata_statement_1(b, l + 1);
+    r = r && metadata_statement_2(b, l + 1);
+    exit_section_(b, m, METADATA_STATEMENT, r);
+    return r;
+  }
+
+  // 'true' | 'false'
+  private static boolean metadata_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "metadata_statement_1")) return false;
+    boolean r;
+    r = consumeToken(b, TRUE);
+    if (!r) r = consumeToken(b, FALSE);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean metadata_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "metadata_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "metadata_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // person_statement
   //  | software_system_statement
   //  | identifiers_statement
   //  | element_statement
   //  | deployment_environment_statement
   //  | <<group_statements model_block_statement>>
+  //  | extend_statement
   static boolean model_block_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "model_block_statement")) return false;
     boolean r;
@@ -2623,6 +2793,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = element_statement(b, l + 1);
     if (!r) r = deployment_environment_statement(b, l + 1);
     if (!r) r = group_statements(b, l + 1, StructurizrDslParser::model_block_statement);
+    if (!r) r = extend_statement(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -2677,6 +2848,35 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
       int c = current_position_(b);
       if (!consumeToken(b, LINE_BREAK)) break;
       if (!empty_element_parsed_guard_(b, "name_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'opacity' any_text LINE_BREAK+
+  public static boolean opacity_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "opacity_statement")) return false;
+    if (!nextTokenIs(b, OPACITY)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, OPACITY);
+    r = r && any_text(b, l + 1);
+    r = r && opacity_statement_2(b, l + 1);
+    exit_section_(b, m, OPACITY_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean opacity_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "opacity_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "opacity_statement_2", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
@@ -2742,6 +2942,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | properties_statement
   //  | perspectives_statement
   //  | relation_statement
+  //  | extend_statement
   static boolean person_block_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "person_block_statement")) return false;
     boolean r;
@@ -2751,6 +2952,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = properties_statement(b, l + 1);
     if (!r) r = perspectives_statement(b, l + 1);
     if (!r) r = relation_statement(b, l + 1);
+    if (!r) r = extend_statement(b, l + 1);
     return r;
   }
 
@@ -2852,6 +3054,35 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "perspectives_statement_2", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // 'position' any_text LINE_BREAK+
+  public static boolean position_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "position_statement")) return false;
+    if (!nextTokenIs(b, POSITION)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, POSITION);
+    r = r && any_text(b, l + 1);
+    r = r && position_statement_2(b, l + 1);
+    exit_section_(b, m, POSITION_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean position_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "position_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "position_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -2986,14 +3217,92 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'relationship'
+  // 'relationship' tag (relationship_style_block | LINE_BREAK+)
   public static boolean relationship_style(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "relationship_style")) return false;
     if (!nextTokenIs(b, RELATIONSHIP)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, RELATIONSHIP);
+    r = r && tag(b, l + 1);
+    r = r && relationship_style_2(b, l + 1);
     exit_section_(b, m, RELATIONSHIP_STYLE, r);
+    return r;
+  }
+
+  // relationship_style_block | LINE_BREAK+
+  private static boolean relationship_style_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationship_style_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = relationship_style_block(b, l + 1);
+    if (!r) r = relationship_style_2_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean relationship_style_2_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationship_style_2_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "relationship_style_2_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // opening_block relationship_style_block_statement* closing_block
+  public static boolean relationship_style_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationship_style_block")) return false;
+    if (!nextTokenIs(b, OPEN_PARENS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = opening_block(b, l + 1);
+    r = r && relationship_style_block_1(b, l + 1);
+    r = r && closing_block(b, l + 1);
+    exit_section_(b, m, RELATIONSHIP_STYLE_BLOCK, r);
+    return r;
+  }
+
+  // relationship_style_block_statement*
+  private static boolean relationship_style_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationship_style_block_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!relationship_style_block_statement(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "relationship_style_block_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // thickness_statement
+  //  | color_statement
+  //  | border_statement
+  //  | routing_statement
+  //  | font_size_statement
+  //  | width_statement
+  //  | position_statement
+  //  | opacity_statement
+  //  | properties_statement
+  static boolean relationship_style_block_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationship_style_block_statement")) return false;
+    boolean r;
+    r = thickness_statement(b, l + 1);
+    if (!r) r = color_statement(b, l + 1);
+    if (!r) r = border_statement(b, l + 1);
+    if (!r) r = routing_statement(b, l + 1);
+    if (!r) r = font_size_statement(b, l + 1);
+    if (!r) r = width_statement(b, l + 1);
+    if (!r) r = position_statement(b, l + 1);
+    if (!r) r = opacity_statement(b, l + 1);
+    if (!r) r = properties_statement(b, l + 1);
     return r;
   }
 
@@ -3042,6 +3351,45 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'routing' ('Direct' | 'Orthogonal' | 'Curved') LINE_BREAK+
+  public static boolean routing_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "routing_statement")) return false;
+    if (!nextTokenIs(b, ROUTING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ROUTING);
+    r = r && routing_statement_1(b, l + 1);
+    r = r && routing_statement_2(b, l + 1);
+    exit_section_(b, m, ROUTING_STATEMENT, r);
+    return r;
+  }
+
+  // 'Direct' | 'Orthogonal' | 'Curved'
+  private static boolean routing_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "routing_statement_1")) return false;
+    boolean r;
+    r = consumeToken(b, DIRECT);
+    if (!r) r = consumeToken(b, ORTHOGONAL);
+    if (!r) r = consumeToken(b, CURVED);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean routing_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "routing_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "routing_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
   static boolean shape(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shape")) return false;
@@ -3060,6 +3408,35 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, MOBILE_DEVICE_PORTRAIT);
     if (!r) r = consumeToken(b, MOBILE_DEVICE_LANDSCAPE);
     if (!r) r = consumeToken(b, COMPONENT_SHAPE);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'shape' shape LINE_BREAK+
+  public static boolean shape_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "shape_statement")) return false;
+    if (!nextTokenIs(b, SHAPE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, SHAPE);
+    r = r && shape(b, l + 1);
+    r = r && shape_statement_2(b, l + 1);
+    exit_section_(b, m, SHAPE_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean shape_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "shape_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "shape_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -3099,6 +3476,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | properties_statement
   //  | perspectives_statement
   //  | relation_statement
+  //  | extend_statement
   static boolean software_system_block_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "software_system_block_statement")) return false;
     boolean r;
@@ -3113,6 +3491,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = properties_statement(b, l + 1);
     if (!r) r = perspectives_statement(b, l + 1);
     if (!r) r = relation_statement(b, l + 1);
+    if (!r) r = extend_statement(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -3252,6 +3631,64 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
       int c = current_position_(b);
       if (!consumeToken(b, LINE_BREAK)) break;
       if (!empty_element_parsed_guard_(b, "software_system_statement_1_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'stroke' any_text LINE_BREAK+
+  public static boolean stroke_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stroke_statement")) return false;
+    if (!nextTokenIs(b, STROKE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, STROKE);
+    r = r && any_text(b, l + 1);
+    r = r && stroke_statement_2(b, l + 1);
+    exit_section_(b, m, STROKE_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean stroke_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stroke_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "stroke_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'strokeWidth' any_text LINE_BREAK+
+  public static boolean stroke_width_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stroke_width_statement")) return false;
+    if (!nextTokenIs(b, STROKE_WIDTH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, STROKE_WIDTH);
+    r = r && any_text(b, l + 1);
+    r = r && stroke_width_statement_2(b, l + 1);
+    exit_section_(b, m, STROKE_WIDTH_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean stroke_width_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stroke_width_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "stroke_width_statement_2", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
@@ -3637,6 +4074,367 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // opening_block terminology_block_statement* closing_block
+  public static boolean terminology_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block")) return false;
+    if (!nextTokenIs(b, OPEN_PARENS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = opening_block(b, l + 1);
+    r = r && terminology_block_1(b, l + 1);
+    r = r && closing_block(b, l + 1);
+    exit_section_(b, m, TERMINOLOGY_BLOCK, r);
+    return r;
+  }
+
+  // terminology_block_statement*
+  private static boolean terminology_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!terminology_block_statement(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // 'person' any_text LINE_BREAK+
+  //  | 'softwareSystem' any_text LINE_BREAK+
+  //  | 'container' any_text LINE_BREAK+
+  //  | 'component' any_text LINE_BREAK+
+  //  | 'deploymentNode' any_text LINE_BREAK+
+  //  | 'infrastructureNode' any_text LINE_BREAK+
+  //  | 'relationship' any_text LINE_BREAK+
+  static boolean terminology_block_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = terminology_block_statement_0(b, l + 1);
+    if (!r) r = terminology_block_statement_1(b, l + 1);
+    if (!r) r = terminology_block_statement_2(b, l + 1);
+    if (!r) r = terminology_block_statement_3(b, l + 1);
+    if (!r) r = terminology_block_statement_4(b, l + 1);
+    if (!r) r = terminology_block_statement_5(b, l + 1);
+    if (!r) r = terminology_block_statement_6(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'person' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PERSON);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_0_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_0_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_0_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'softwareSystem' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, SOFTWARE_SYSTEM);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_1_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_1_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_1_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'container' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CONTAINER);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_2_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_2_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_2_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_2_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'component' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMPONENT);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_3_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_3_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_3_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_3_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'deploymentNode' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_4")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DEPLOYMENT_NODE);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_4_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_4_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_4_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_4_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'infrastructureNode' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_5")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, INFRASTRUCTURE_NODE);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_5_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_5_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_5_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_5_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // 'relationship' any_text LINE_BREAK+
+  private static boolean terminology_block_statement_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_6")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, RELATIONSHIP);
+    r = r && any_text(b, l + 1);
+    r = r && terminology_block_statement_6_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean terminology_block_statement_6_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_block_statement_6_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "terminology_block_statement_6_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'terminology' terminology_block
+  public static boolean terminology_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "terminology_statement")) return false;
+    if (!nextTokenIs(b, TERMINOLOGY)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TERMINOLOGY);
+    r = r && terminology_block(b, l + 1);
+    exit_section_(b, m, TERMINOLOGY_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'theme' ('default' | any_text) LINE_BREAK+
+  public static boolean theme_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "theme_statement")) return false;
+    if (!nextTokenIs(b, THEME)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, THEME);
+    r = r && theme_statement_1(b, l + 1);
+    r = r && theme_statement_2(b, l + 1);
+    exit_section_(b, m, THEME_STATEMENT, r);
+    return r;
+  }
+
+  // 'default' | any_text
+  private static boolean theme_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "theme_statement_1")) return false;
+    boolean r;
+    r = consumeToken(b, DEFAULT);
+    if (!r) r = any_text(b, l + 1);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean theme_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "theme_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "theme_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'themes' any_text+ LINE_BREAK+
+  public static boolean themes_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "themes_statement")) return false;
+    if (!nextTokenIs(b, THEMES)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, THEMES);
+    r = r && themes_statement_1(b, l + 1);
+    r = r && themes_statement_2(b, l + 1);
+    exit_section_(b, m, THEMES_STATEMENT, r);
+    return r;
+  }
+
+  // any_text+
+  private static boolean themes_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "themes_statement_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = any_text(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!any_text(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "themes_statement_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean themes_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "themes_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "themes_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'thickness' any_text LINE_BREAK+
+  public static boolean thickness_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "thickness_statement")) return false;
+    if (!nextTokenIs(b, THICKNESS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, THICKNESS);
+    r = r && any_text(b, l + 1);
+    r = r && thickness_statement_2(b, l + 1);
+    exit_section_(b, m, THICKNESS_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean thickness_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "thickness_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "thickness_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // 'title' any_text LINE_BREAK+
   public static boolean title_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "title_statement")) return false;
@@ -3747,6 +4545,11 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | custom_view_statement
   //  | image_view_statement
   //  | styles_statement
+  //  | theme_statement
+  //  | themes_statement
+  //  | branding_statement
+  //  | terminology_statement
+  //  | properties_statement
   public static boolean views_block_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "views_block_statement")) return false;
     boolean r;
@@ -3761,6 +4564,11 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     if (!r) r = custom_view_statement(b, l + 1);
     if (!r) r = image_view_statement(b, l + 1);
     if (!r) r = styles_statement(b, l + 1);
+    if (!r) r = theme_statement(b, l + 1);
+    if (!r) r = themes_statement(b, l + 1);
+    if (!r) r = branding_statement(b, l + 1);
+    if (!r) r = terminology_statement(b, l + 1);
+    if (!r) r = properties_statement(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -3779,6 +4587,35 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'width' any_text LINE_BREAK+
+  public static boolean width_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "width_statement")) return false;
+    if (!nextTokenIs(b, WIDTH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, WIDTH);
+    r = r && any_text(b, l + 1);
+    r = r && width_statement_2(b, l + 1);
+    exit_section_(b, m, WIDTH_STATEMENT, r);
+    return r;
+  }
+
+  // LINE_BREAK+
+  private static boolean width_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "width_statement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_BREAK);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, LINE_BREAK)) break;
+      if (!empty_element_parsed_guard_(b, "width_statement_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // name_statement
   //  | description_statement
   //  | properties_statement
@@ -3788,8 +4625,8 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   //  | model_statement
   //  | views_statement
   //  | configuration_statement
-  static boolean workspace_block_statements(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "workspace_block_statements")) return false;
+  static boolean workspace_block_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "workspace_block_statement")) return false;
     boolean r;
     r = name_statement(b, l + 1);
     if (!r) r = description_statement(b, l + 1);
@@ -3864,7 +4701,7 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // workspace_definition opening_block workspace_block_statements*  closing_block
+  // workspace_definition opening_block workspace_block_statement*  closing_block
   public static boolean workspace_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "workspace_statement")) return false;
     if (!nextTokenIs(b, WORKSPACE)) return false;
@@ -3878,12 +4715,12 @@ public class StructurizrDslParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // workspace_block_statements*
+  // workspace_block_statement*
   private static boolean workspace_statement_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "workspace_statement_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!workspace_block_statements(b, l + 1)) break;
+      if (!workspace_block_statement(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "workspace_statement_2", c)) break;
     }
     return true;

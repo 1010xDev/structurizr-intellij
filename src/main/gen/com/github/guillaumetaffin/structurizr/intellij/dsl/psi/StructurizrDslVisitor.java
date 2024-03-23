@@ -31,7 +31,27 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBackgroundStatement(@NotNull StructurizrDslBackgroundStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBorderStatement(@NotNull StructurizrDslBorderStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBrandingBlock(@NotNull StructurizrDslBrandingBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBrandingStatement(@NotNull StructurizrDslBrandingStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitClosingBlock(@NotNull StructurizrDslClosingBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitColorStatement(@NotNull StructurizrDslColorStatement o) {
     visitPsiElement(o);
   }
 
@@ -143,6 +163,14 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitExtendBlock(@NotNull StructurizrDslExtendBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExtendStatement(@NotNull StructurizrDslExtendStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitFilteredViewBlock(@NotNull StructurizrDslFilteredViewBlock o) {
     visitPsiElement(o);
   }
@@ -151,11 +179,27 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFontSizeStatement(@NotNull StructurizrDslFontSizeStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFontStatement(@NotNull StructurizrDslFontStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitGroupStatements(@NotNull StructurizrDslGroupStatements o) {
     visitPsiElement(o);
   }
 
   public void visitHealthCheckStatement(@NotNull StructurizrDslHealthCheckStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitHeightStatement(@NotNull StructurizrDslHeightStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIconStatement(@NotNull StructurizrDslIconStatement o) {
     visitPsiElement(o);
   }
 
@@ -203,11 +247,23 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLogoStatement(@NotNull StructurizrDslLogoStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMetadataStatement(@NotNull StructurizrDslMetadataStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitModelStatement(@NotNull StructurizrDslModelStatement o) {
     visitPsiElement(o);
   }
 
   public void visitNameStatement(@NotNull StructurizrDslNameStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOpacityStatement(@NotNull StructurizrDslOpacityStatement o) {
     visitPsiElement(o);
   }
 
@@ -231,6 +287,10 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPositionStatement(@NotNull StructurizrDslPositionStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitPropertiesStatement(@NotNull StructurizrDslPropertiesStatement o) {
     visitPsiElement(o);
   }
@@ -251,7 +311,19 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitRelationshipStyleBlock(@NotNull StructurizrDslRelationshipStyleBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitRhsRelationStatement(@NotNull StructurizrDslRhsRelationStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRoutingStatement(@NotNull StructurizrDslRoutingStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitShapeStatement(@NotNull StructurizrDslShapeStatement o) {
     visitPsiElement(o);
   }
 
@@ -268,6 +340,14 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
   }
 
   public void visitSoftwareSystemStatement(@NotNull StructurizrDslSoftwareSystemStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStrokeStatement(@NotNull StructurizrDslStrokeStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStrokeWidthStatement(@NotNull StructurizrDslStrokeWidthStatement o) {
     visitPsiElement(o);
   }
 
@@ -299,6 +379,26 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTerminologyBlock(@NotNull StructurizrDslTerminologyBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTerminologyStatement(@NotNull StructurizrDslTerminologyStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitThemeStatement(@NotNull StructurizrDslThemeStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitThemesStatement(@NotNull StructurizrDslThemesStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitThicknessStatement(@NotNull StructurizrDslThicknessStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitTitleStatement(@NotNull StructurizrDslTitleStatement o) {
     visitPsiElement(o);
   }
@@ -320,6 +420,10 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
   }
 
   public void visitViewsStatement(@NotNull StructurizrDslViewsStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWidthStatement(@NotNull StructurizrDslWidthStatement o) {
     visitPsiElement(o);
   }
 

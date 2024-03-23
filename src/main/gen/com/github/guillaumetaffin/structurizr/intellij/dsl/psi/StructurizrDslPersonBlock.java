@@ -14,6 +14,9 @@ public interface StructurizrDslPersonBlock extends PsiElement {
   List<StructurizrDslDescriptionStatement> getDescriptionStatementList();
 
   @NotNull
+  List<StructurizrDslExtendStatement> getExtendStatementList();
+
+  @NotNull
   StructurizrDslOpeningBlock getOpeningBlock();
 
   @NotNull

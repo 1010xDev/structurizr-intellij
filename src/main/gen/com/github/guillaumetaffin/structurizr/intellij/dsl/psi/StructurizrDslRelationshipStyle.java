@@ -7,4 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface StructurizrDslRelationshipStyle extends PsiElement {
 
+  @Nullable
+  StructurizrDslRelationshipStyleBlock getRelationshipStyleBlock();
+
+  @NotNull
+  StructurizrDslTag getTag();
+
 }

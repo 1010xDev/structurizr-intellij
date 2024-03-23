@@ -100,11 +100,10 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "width"                      { return Tokens.WIDTH; }
   "height"                     { return Tokens.HEIGHT; }
   "background"                 { return Tokens.BACKGROUND; }
-  "color"                      { return Tokens.COLOR; }
   "colour"                     { return Tokens.COLOR; }
+  "color"                      { return Tokens.COLOR; }
   "stroke"                     { return Tokens.STROKE; }
   "strokeWidth"                { return Tokens.STROKE_WIDTH; }
-  "fontSize"                   { return Tokens.FONT_SIZE; }
   "border"                     { return Tokens.BORDER; }
   "solid"                      { return Tokens.SOLID; }
   "dashed"                     { return Tokens.DASHED; }
@@ -119,6 +118,15 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "Orthogonal"                 { return Tokens.ORTHOGONAL; }
   "Curved"                     { return Tokens.CURVED; }
   "thickness"                  { return Tokens.THICKNESS; }
+  "themes"                     { return Tokens.THEMES; }
+  "theme"                      { return Tokens.THEME; }
+  "branding"                   { return Tokens.BRANDING; }
+  "font"                       { return Tokens.FONT; }
+  "logo"                       { return Tokens.LOGO; }
+  "fontSize"                   { return Tokens.FONT_SIZE; }
+  "terminology"                { return Tokens.TERMINOLOGY; }
+  "!extend"                    { return Tokens.EXTEND; }
+  "!ref"                       { return Tokens.REF; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }

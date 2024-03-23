@@ -103,6 +103,14 @@ class Direct : StructurizrKeyword("Direct")
 class Orthogonal : StructurizrKeyword("Orthogonal")
 class Curved : StructurizrKeyword("Curved")
 class Thickness : StructurizrKeyword("thickness")
+class Theme : StructurizrKeyword("theme")
+class Themes : StructurizrKeyword("themes")
+class Branding : StructurizrKeyword("branding")
+class Font : StructurizrKeyword("font")
+class Logo : StructurizrKeyword("logo")
+class Terminology : StructurizrKeyword("terminology")
+class Extend : StructurizrKeyword("!extend")
+class Ref : StructurizrKeyword("!ref")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -356,6 +364,9 @@ data object Tokens {
     val FONT_SIZE = FontSize()
 
     @JvmField
+    val TERMINOLOGY = Terminology()
+
+    @JvmField
     val BORDER = Border()
 
     @JvmField
@@ -396,6 +407,27 @@ data object Tokens {
 
     @JvmField
     val THICKNESS = Thickness()
+
+    @JvmField
+    val THEME = Theme()
+
+    @JvmField
+    val THEMES = Themes()
+
+    @JvmField
+    val BRANDING = Branding()
+
+    @JvmField
+    val FONT = Font()
+
+    @JvmField
+    val LOGO = Logo()
+
+    @JvmField
+    val EXTEND = Extend()
+
+    @JvmField
+    val REF = Ref()
 
     @JvmField
     val EQ = Equal()

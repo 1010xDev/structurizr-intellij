@@ -29,6 +29,12 @@ public class StructurizrDslViewsBlockStatementImpl extends ASTWrapperPsiElement 
 
   @Override
   @Nullable
+  public StructurizrDslBrandingStatement getBrandingStatement() {
+    return findChildByClass(StructurizrDslBrandingStatement.class);
+  }
+
+  @Override
+  @Nullable
   public StructurizrDslComponentViewStatement getComponentViewStatement() {
     return findChildByClass(StructurizrDslComponentViewStatement.class);
   }
@@ -71,6 +77,12 @@ public class StructurizrDslViewsBlockStatementImpl extends ASTWrapperPsiElement 
 
   @Override
   @Nullable
+  public StructurizrDslPropertiesStatement getPropertiesStatement() {
+    return findChildByClass(StructurizrDslPropertiesStatement.class);
+  }
+
+  @Override
+  @Nullable
   public StructurizrDslStylesStatement getStylesStatement() {
     return findChildByClass(StructurizrDslStylesStatement.class);
   }
@@ -85,6 +97,24 @@ public class StructurizrDslViewsBlockStatementImpl extends ASTWrapperPsiElement 
   @Nullable
   public StructurizrDslSystemLandscapeViewStatement getSystemLandscapeViewStatement() {
     return findChildByClass(StructurizrDslSystemLandscapeViewStatement.class);
+  }
+
+  @Override
+  @Nullable
+  public StructurizrDslTerminologyStatement getTerminologyStatement() {
+    return findChildByClass(StructurizrDslTerminologyStatement.class);
+  }
+
+  @Override
+  @Nullable
+  public StructurizrDslThemeStatement getThemeStatement() {
+    return findChildByClass(StructurizrDslThemeStatement.class);
+  }
+
+  @Override
+  @Nullable
+  public StructurizrDslThemesStatement getThemesStatement() {
+    return findChildByClass(StructurizrDslThemesStatement.class);
   }
 
 }

@@ -27,4 +27,16 @@ public class StructurizrDslRelationshipStyleImpl extends ASTWrapperPsiElement im
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public StructurizrDslRelationshipStyleBlock getRelationshipStyleBlock() {
+    return findChildByClass(StructurizrDslRelationshipStyleBlock.class);
+  }
+
+  @Override
+  @NotNull
+  public StructurizrDslTag getTag() {
+    return findNotNullChildByClass(StructurizrDslTag.class);
+  }
+
 }

@@ -17,6 +17,9 @@ public interface StructurizrDslModelStatement extends PsiElement {
   List<StructurizrDslElementStatement> getElementStatementList();
 
   @NotNull
+  List<StructurizrDslExtendStatement> getExtendStatementList();
+
+  @NotNull
   List<StructurizrDslGroupStatements> getGroupStatementsList();
 
   @NotNull

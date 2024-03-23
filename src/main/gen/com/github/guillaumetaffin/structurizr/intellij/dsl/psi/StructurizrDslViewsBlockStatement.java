@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface StructurizrDslViewsBlockStatement extends PsiElement {
 
   @Nullable
+  StructurizrDslBrandingStatement getBrandingStatement();
+
+  @Nullable
   StructurizrDslComponentViewStatement getComponentViewStatement();
 
   @Nullable
@@ -29,6 +32,9 @@ public interface StructurizrDslViewsBlockStatement extends PsiElement {
   StructurizrDslImageViewStatement getImageViewStatement();
 
   @Nullable
+  StructurizrDslPropertiesStatement getPropertiesStatement();
+
+  @Nullable
   StructurizrDslStylesStatement getStylesStatement();
 
   @Nullable
@@ -36,5 +42,14 @@ public interface StructurizrDslViewsBlockStatement extends PsiElement {
 
   @Nullable
   StructurizrDslSystemLandscapeViewStatement getSystemLandscapeViewStatement();
+
+  @Nullable
+  StructurizrDslTerminologyStatement getTerminologyStatement();
+
+  @Nullable
+  StructurizrDslThemeStatement getThemeStatement();
+
+  @Nullable
+  StructurizrDslThemesStatement getThemesStatement();
 
 }

@@ -53,6 +53,12 @@ public class StructurizrDslComponentBlockImpl extends ASTWrapperPsiElement imple
 
   @Override
   @NotNull
+  public List<StructurizrDslExtendStatement> getExtendStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslExtendStatement.class);
+  }
+
+  @Override
+  @NotNull
   public StructurizrDslOpeningBlock getOpeningBlock() {
     return findNotNullChildByClass(StructurizrDslOpeningBlock.class);
   }

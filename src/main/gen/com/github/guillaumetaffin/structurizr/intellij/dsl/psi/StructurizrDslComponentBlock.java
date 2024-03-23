@@ -20,6 +20,9 @@ public interface StructurizrDslComponentBlock extends PsiElement {
   List<StructurizrDslDocsStatement> getDocsStatementList();
 
   @NotNull
+  List<StructurizrDslExtendStatement> getExtendStatementList();
+
+  @NotNull
   StructurizrDslOpeningBlock getOpeningBlock();
 
   @NotNull
