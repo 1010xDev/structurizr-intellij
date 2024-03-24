@@ -56,6 +56,8 @@ koverReport {
     }
 }
 
+sourceSets["main"].java.srcDirs("src/main/gen")
+
 tasks {
     wrapper {
         gradleVersion = properties("gradleVersion").get()

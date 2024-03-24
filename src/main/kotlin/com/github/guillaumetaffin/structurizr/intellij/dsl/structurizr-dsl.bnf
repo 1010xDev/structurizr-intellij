@@ -1,0 +1,557 @@
+{
+  parserClass="com.github.guillaumetaffin.structurizr.intellij.dsl.parser.StructurizrDslParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="StructurizrDsl"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.guillaumetaffin.structurizr.intellij.dsl.psi"
+  psiImplPackage="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.impl"
+
+  elementTypeHolderClass="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslTypes"
+  elementTypeClass="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslElementType"
+  tokenTypeClass="com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslToken"
+
+  parserImports=[
+      "static com.github.guillaumetaffin.structurizr.intellij.dsl.psi.Tokens.*"
+      "import static com.intellij.psi.TokenType.WHITE_SPACE;"
+    ]
+
+    generateTokens=false
+
+  tokens = [
+    EXTENDS="extends"
+    WORKSPACE="workspace"
+    MODEL="model"
+    PERSON="person"
+    SOFTWARE_SYSTEM="softwareSystem"
+    CONTAINER="container"
+    COMPONENT="component"
+    GROUP="group"
+    NAME="name"
+    DESCRIPTION="description"
+    PROPERTIES="properties"
+    IDENTIFIERS="!identifiers"
+    HIERARCHICAL="hierarchical"
+    FLAT="flat"
+    DOCS="!docs"
+    ADRS="!adrs"
+    VIEWS="views"
+    CONFIGURATION="configuration"
+    TAGS="tags"
+    URL="url"
+    PERSPECTIVES="perspectives"
+    RELATION_ARROW="->"
+    THIS="this"
+    TECHNOLOGY="technology"
+    ELEMENT="element"
+    DEPLOYMENT_ENVIRONMENT="deploymentEnvironment"
+    DEPLOYMENT_GROUP="deploymentGroup"
+    DEPLOYMENT_NODE="deploymentNode"
+    INSTANCES="instances"
+    INFRASTRUCTURE_NODE="infrastructureNode"
+    SOFTWARE_SYSTEM_INSTANCE="softwareSystemInstance"
+    HEALTH_CHECK="healthCheck"
+    CONTAINER_INSTANCE="containerInstance"
+    SYSTEM_LANDSCAPE="systemLandscape"
+    INCLUDE="include"
+    EXCLUDE="exclude"
+    AUTOLAYOUT="autolayout"
+    TB="tb"
+    BT="bt"
+    LR="lr"
+    RL="rl"
+    DEFAULT="default"
+    STAR="*"
+    ANIMATION="animation"
+    TITLE="title"
+    SYSTEM_CONTEXT="systemContext"
+    FILTERED="filtered"
+    DYNAMIC="dynamic"
+    DEPLOYMENT="deployment"
+    CUSTOM="custom"
+    IMAGE="image"
+    PLANTUML="plantuml"
+    MERMAID="mermaid"
+    KROKI="kroki"
+    STYLES="styles"
+    SHAPE="shape"
+    BOX="Box"
+    ROUNDED_BOX="RoundedBox"
+    CIRCLE="Circle"
+    ELLIPSE="Ellipse"
+    HEXAGON="Hexagon"
+    CYLINDER="Cylinder"
+    PIPE="Pipe"
+    PERSON_SHAPE="Person"
+    ROBOT="Robot"
+    FOLDER="Folder"
+    WEB_BROWSER="WebBrowser"
+    MOBILE_DEVICE_PORTRAIT="MobileDevicePortrait"
+    MOBILE_DEVICE_LANDSCAPE="MobileDeviceLandscape"
+    COMPONENT_SHAPE="Component"
+    RELATIONSHIP="relationship"
+    ICON="icon"
+    WIDTH="width"
+    HEIGHT="height"
+    BACKGROUND="background"
+    COLOR="regexp:(color|colour)"
+    STROKE="stroke"
+    STROKE_WIDTH="strokeWidth"
+    BORDER="border"
+    SOLID="solid"
+    DASHED="dashed"
+    DOTTED="dotted"
+    OPACITY="opacity"
+    METADATA="metadata"
+    TRUE="true"
+    FALSE="false"
+    POSITION="position"
+    ROUTING="routing"
+    DIRECT="Direct"
+    ORTHOGONAL="Orthogonal"
+    CURVED="Curved"
+    THICKNESS="thickness"
+    THEMES="themes"
+    THEME="theme"
+    BRANDING="branding"
+    FONT="font"
+    LOGO="logo"
+    FONT_SIZE="fontSize"
+    TERMINOLOGY="terminology"
+    EXTEND="!extend"
+    REF="!ref"
+
+    EQ="="
+
+    OPEN_PARENS="{"
+    CLOSE_PARENS="}"
+
+    QUOTED_TEXT='regexp:\"[^\"\r\n]*\"?'
+    UNQUOTED_TEXT='regexp:[^\s\"\r\n{=]+'
+
+    LINE_BREAK="regexp:[\n\r]"
+    WHITE_SPACE="regexp:[ \t\f]+"
+    space="regexp:[ \t\f]+"
+  ]
+}
+
+structurizrFile ::= top_level_statements*
+
+private top_level_statements ::= workspace_statement
+
+workspace_statement ::= workspace_definition opening_block workspace_block_statement*  closing_block
+workspace_definition ::= WORKSPACE ( a_name a_description? | "extends" any_text )?
+private workspace_block_statement ::= name_statement
+ | description_statement
+ | properties_statement
+ | identifiers_statement
+ | docs_statement
+ | adrs_statement
+ | model_statement
+ | views_statement
+ | configuration_statement
+
+name_statement ::= "name" any_text LINE_BREAK+
+description_statement ::= "description" any_text LINE_BREAK+
+properties_statement ::= "properties" opening_block property_statement* closing_block
+property_statement ::= any_text any_text LINE_BREAK+
+identifiers_statement ::= "!identifiers" ("hierarchical" | "flat") LINE_BREAK+
+docs_statement ::= '!docs' any_text any_text? LINE_BREAK+
+adrs_statement ::= '!adrs' any_text any_text? LINE_BREAK+
+tags_statement ::= 'tags' any_text+ LINE_BREAK+
+url_statement ::= 'url' any_text LINE_BREAK+
+perspectives_statement ::= "perspectives" opening_block perspective_statement* closing_block
+perspective_statement ::= any_text any_text any_text? LINE_BREAK+
+technology_statement ::= 'technology' any_text LINE_BREAK+
+
+extend_statement ::= (id '=')? ('!extend' | '!ref') id (extend_block | LINE_BREAK+)
+extend_block ::= opening_block (
+    model_block_statement
+    | software_system_block_statement
+    | person_block_statement
+    | container_block_statement
+    | component_block_statement
+)* closing_block
+
+model_statement ::= "model" opening_block model_block_statement* closing_block
+private model_block_statement ::= person_statement
+ | software_system_statement
+ | identifiers_statement
+ | element_statement
+ | deployment_environment_statement
+ | <<group_statements model_block_statement>>
+ | extend_statement
+
+element_statement ::= 'element' a_name any_text? a_description? tag? (element_block | LINE_BREAK+)
+element_block ::= opening_block element_block_statement* closing_block
+element_block_statement ::= description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
+
+deployment_environment_statement ::= 'deploymentEnvironment' a_name deployment_environment_block
+deployment_environment_block ::= opening_block deployment_environment_block_statement* closing_block
+private deployment_environment_block_statement ::= relation_statement
+ | deployment_group_statement
+ | deployment_node_statement
+ | <<group_statements deployment_environment_block_statement>>
+
+deployment_group_statement ::= 'deploymentGroup' a_name LINE_BREAK+
+
+deployment_node_statement ::= 'deploymentNode' a_name a_description? any_text? tag? any_text? (deployment_node_block | LINE_BREAK+)
+deployment_node_block ::= opening_block deployment_node_block_statement* closing_block
+private deployment_node_block_statement ::= <<group_statements deployment_node_statement>>
+ | deployment_node_statement
+ | infrastructure_node_statement
+ | software_system_instance_statement
+ | container_instance_statement
+ | relation_statement
+ | description_statement
+ | technology_statement
+ | instances_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+
+infrastructure_node_statement ::= 'infrastructureNode' a_name a_description? any_text? tag? (infrastructure_node_block | LINE_BREAK+)
+infrastructure_node_block ::= opening_block infrastructure_node_block_statement* closing_block
+private infrastructure_node_block_statement ::= relation_statement
+ | description_statement
+ | technology_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+
+software_system_instance_statement ::= 'softwareSystemInstance' id any_text? tag? (software_system_instance_block | LINE_BREAK+)
+software_system_instance_block ::= opening_block software_system_instance_block_statement* closing_block
+private software_system_instance_block_statement ::= relation_statement
+ | description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | health_check_statement
+
+container_instance_statement ::= 'containerInstance' id any_text? tag? (container_instance_block | LINE_BREAK+)
+container_instance_block ::= opening_block container_instance_block_statement* closing_block
+private container_instance_block_statement ::= relation_statement
+ | description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ |health_check_statement
+
+health_check_statement ::= 'healthCheck' a_name any_text any_text? any_text?
+
+instances_statement ::= 'instances' any_text LINE_BREAK+
+
+person_statement ::= <<taggable_element_definition "person">> (person_block | LINE_BREAK+)
+person_block ::= opening_block person_block_statement* closing_block
+private person_block_statement ::= description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
+ | extend_statement
+
+software_system_statement ::= <<taggable_element_definition "softwareSystem" >> (software_system_block | LINE_BREAK+)
+software_system_block ::= opening_block software_system_block_statement* closing_block
+private software_system_block_statement ::= container_statement
+ | docs_statement
+ | adrs_statement
+ | <<group_statements software_system_block_statement>>
+ | description_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
+ | extend_statement
+
+container_statement ::= <<tech_taggable_element_definition "container" >> (container_block | LINE_BREAK+)
+container_block ::= opening_block container_block_statement* closing_block
+private container_block_statement ::= component_statement
+ | docs_statement
+ | adrs_statement
+ | <<group_statements container_block_statement>>
+ | description_statement
+ | technology_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
+ | extend_statement
+
+component_statement ::= <<tech_taggable_element_definition "component" >> (component_block | LINE_BREAK+)
+component_block ::= opening_block component_block_statement*  closing_block
+private component_block_statement ::= docs_statement
+ | adrs_statement
+ | description_statement
+ | technology_statement
+ | tags_statement
+ | url_statement
+ | properties_statement
+ | perspectives_statement
+ | relation_statement
+ | extend_statement
+
+relation_statement ::= lhs_relation_statement '->' rhs_relation_statement (relation_block | LINE_BREAK+)
+rhs_relation_statement ::= ('this' | id) a_description? any_text? tag?
+lhs_relation_statement ::= ('this' | id) ?
+relation_block ::= opening_block relation_block_statements* closing_block
+private relation_block_statements ::= tags_statement | url_statement | properties_statement | perspective_statement
+
+views_statement ::= "views" views_block
+views_block ::= opening_block views_block_statement* closing_block
+views_block_statement ::= system_landscape_view_statement
+ | system_context_view_statement
+ | container_view_statement
+ | component_view_statement
+ | filtered_view_statement
+ | dynamic_view_statement
+ | deployment_view_statement
+ | custom_view_statement
+ | image_view_statement
+ | styles_statement
+ | theme_statement
+ | themes_statement
+ | branding_statement
+ | terminology_statement
+ | properties_statement
+
+theme_statement ::= 'theme' ('default' | any_text) LINE_BREAK+
+themes_statement ::= 'themes' any_text+ LINE_BREAK+
+
+branding_statement ::= 'branding' branding_block
+branding_block ::= opening_block (
+logo_statement
+ | font_statement
+)+ closing_block
+
+terminology_statement ::= 'terminology' terminology_block
+terminology_block ::= opening_block terminology_block_statement* closing_block
+private terminology_block_statement ::= 'person' any_text LINE_BREAK+
+ | 'softwareSystem' any_text LINE_BREAK+
+ | 'container' any_text LINE_BREAK+
+ | 'component' any_text LINE_BREAK+
+ | 'deploymentNode' any_text LINE_BREAK+
+ | 'infrastructureNode' any_text LINE_BREAK+
+ | 'relationship' any_text LINE_BREAK+
+
+font_statement ::= 'font' a_name any_text? LINE_BREAK+
+logo_statement ::= 'logo' any_text LINE_BREAK+
+
+system_landscape_view_statement ::=  'systemLandscape' view_key? a_description? (common_view_block | LINE_BREAK+)
+
+system_context_view_statement ::= 'systemContext' id view_key? a_description? (common_view_block | LINE_BREAK+)
+
+container_view_statement ::= 'container' id view_key? a_description? (common_view_block | LINE_BREAK+)
+
+component_view_statement ::= 'component' id view_key? a_description? (common_view_block | LINE_BREAK+)
+
+filtered_view_statement ::= 'filtered' view_key ('include' | 'exclude') tag view_key? a_description? (filtered_view_block | LINE_BREAK+)
+filtered_view_block ::= opening_block (default_statement | title_statement | description_statement | properties_statement)* closing_block
+
+dynamic_view_statement ::= 'dynamic' ('*' | id) view_key? a_description? (dynamic_view_block | LINE_BREAK+)
+dynamic_view_block ::= opening_block (relation_statement | autolayout_statement | default_statement | title_statement | description_statement | properties_statement)* closing_block
+
+deployment_view_statement ::= 'deployment' ('*' | id) any_text view_key? a_description? (common_view_block | LINE_BREAK+)
+
+custom_view_statement ::= 'custom' view_key? any_text? a_description? (common_view_block | LINE_BREAK+)
+
+image_view_statement ::= 'image' ('*' | id) view_key? (image_view_block | LINE_BREAK+)
+image_view_block ::= opening_block image_view_block_statement* closing_block
+private image_view_block_statement ::= 'plantuml' any_text
+ | 'mermaid' any_text
+ | 'kroki' any_text
+ | 'image' any_text
+ | default_statement
+ | title_statement
+ | description_statement
+ | properties_statement
+
+common_view_block ::= opening_block system_landscape_view_block_statement* closing_block
+private system_landscape_view_block_statement ::= include_statement
+ | exclude_statement
+ | autolayout_statement
+ | default_statement
+ | animation_statement
+ | title_statement
+ | description_statement
+ | properties_statement
+
+styles_statement ::= 'styles' styles_block
+styles_block ::= opening_block (element_style | relationship_style)* closing_block
+
+element_style ::= 'element' tag opening_block ( shape_statement
+ | icon_statement
+ | width_statement
+ | height_statement
+ | background_statement
+ | color_statement
+ | stroke_statement
+ | stroke_width_statement
+ | font_size_statement
+ | border_statement
+ | opacity_statement
+ | metadata_statement
+ | properties_statement
+)* closing_block
+
+metadata_statement ::= 'metadata' ('true' | 'false') LINE_BREAK+
+opacity_statement ::= 'opacity' any_text LINE_BREAK+
+border_statement ::= 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
+font_size_statement ::= 'fontSize' any_text LINE_BREAK+
+stroke_width_statement ::= 'strokeWidth' any_text LINE_BREAK+
+stroke_statement ::= 'stroke' any_text LINE_BREAK+
+background_statement ::= 'background' any_text LINE_BREAK+
+height_statement ::= 'height' any_text LINE_BREAK+
+width_statement ::= 'width' any_text LINE_BREAK+
+icon_statement ::= 'icon' any_text LINE_BREAK+
+shape_statement ::= 'shape' shape LINE_BREAK+
+color_statement ::= COLOR any_text LINE_BREAK+
+
+private shape ::= 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
+
+relationship_style ::= 'relationship' tag (relationship_style_block | LINE_BREAK+)
+relationship_style_block ::= opening_block relationship_style_block_statement* closing_block
+private relationship_style_block_statement ::= (
+thickness_statement
+ | color_statement
+ | border_statement
+ | routing_statement
+ | font_size_statement
+ | width_statement
+ | position_statement
+ | opacity_statement
+ | properties_statement
+)
+
+position_statement ::= 'position' any_text LINE_BREAK+
+routing_statement ::= 'routing' ('Direct' | 'Orthogonal' | 'Curved') LINE_BREAK+
+thickness_statement ::= 'thickness' any_text LINE_BREAK+
+
+include_statement ::= include_element_statement | include_relationship_statement
+include_element_statement ::= 'include' ('*' | id | any_text)+ LINE_BREAK+
+include_relationship_statement ::= 'include' (id | any_text)+ LINE_BREAK+
+
+exclude_statement ::= 'exclude' (id | any_text)+ LINE_BREAK+
+
+autolayout_statement ::= 'autolayout' ('tb' | 'bt' | 'lr' | 'rl') any_text? any_text? LINE_BREAK+
+
+default_statement ::= 'default' LINE_BREAK+
+
+animation_statement ::= 'animation' opening_block animation_step* closing_block
+animation_step ::= id+ LINE_BREAK+
+
+title_statement ::= 'title' any_text LINE_BREAK+
+
+view_key ::= any_text
+
+configuration_statement ::= "configuration" opening_block closing_block
+
+id ::= any_text
+private any_text ::= UNQUOTED_TEXT | QUOTED_TEXT| any_keyword
+private any_keyword ::= "workspace"
+ | "model"
+ | "softwareSystem"
+ | "person"
+ | "container"
+ | "component"
+ | "group"
+ | "extends"
+ | "name"
+ | "description"
+ | "properties"
+ | "!identifiers"
+ | "hierarchical"
+ | "flat"
+ | "!docs"
+ | "!adrs"
+ | "views"
+ | "tags"
+ | "url"
+ | "perspectives"
+ | "this"
+ | "technology"
+ | "element"
+ | "deploymentEnvironment"
+ | "deploymentNode"
+ | "deploymentGroup"
+ | "instances"
+ | "infrastructureNode"
+ | "softwareSystemInstance"
+ | "healthCheck"
+ | "containerInstance"
+ | "systemLandscape"
+ | "include"
+ | "exclude"
+ | "autolayout"
+ | "bt"
+ | "tb"
+ | "lr"
+ | "rl"
+ | "default"
+ | "animation"
+ | "title"
+ | "systemContext"
+ | "filtered"
+ | "dynamic"
+ | "deployment"
+ | "custom"
+ | "image"
+ | "plantuml"
+ | "mermaid"
+ | "kroki"
+ | shape
+ | "icon"
+ | "width"
+ | "height"
+ | "background"
+ | COLOR
+ | "stroke"
+ | "strokeWidth"
+ | "fontSize"
+ | "border"
+ | "solid"
+ | "dashed"
+ | "dotted"
+ | "opacity"
+ | "metadata"
+ | "true"
+ | "false"
+ | "position"
+ | "routing"
+ | "Direct"
+ | "Orthogonal"
+ | "Curved"
+ | "thickness"
+ | "theme"
+ | "themes"
+ | "branding"
+ | "font"
+ | "logo"
+ | "terminology"
+ | "!extend"
+ | "!ref"
+
+opening_block ::= "{" LINE_BREAK+
+closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
+
+a_name ::= any_text
+a_description ::= any_text
+tag ::= any_text
+
+// META RULES
+private meta taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? tag?
+private meta tech_taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? any_text? tag?
+
+meta group_statements ::= "group" any_text opening_block <<level_statements>>* closing_block

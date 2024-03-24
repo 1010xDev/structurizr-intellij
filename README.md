@@ -1,8 +1,13 @@
-# structurizr-intellij
+# Structurizr DSL for Jetbrains IDEs
 
 ![Build](https://github.com/1010xDev/structurizr-intellij/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+
+<!-- Plugin description -->
+Support the [Structurizr DSL](https://structurizr.com/) for describing [C4 models](https://c4model.com/).
+<!-- Plugin description end -->
+
 
 ## Installation
 
@@ -27,10 +32,6 @@
   related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
 - [ ] Set
   the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-
-<!-- Plugin description -->
-Support the [Structurizr DSL](https://structurizr.com/) for describing [C4 models](https://c4model.com/).
-<!-- Plugin description end -->
 
 
 ---
