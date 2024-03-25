@@ -29,6 +29,12 @@ public class StructurizrDslTerminologyBlockImpl extends ASTWrapperPsiElement imp
 
   @Override
   @NotNull
+  public List<StructurizrDslBoolean> getBooleanList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslBoolean.class);
+  }
+
+  @Override
+  @NotNull
   public StructurizrDslClosingBlock getClosingBlock() {
     return findNotNullChildByClass(StructurizrDslClosingBlock.class);
   }

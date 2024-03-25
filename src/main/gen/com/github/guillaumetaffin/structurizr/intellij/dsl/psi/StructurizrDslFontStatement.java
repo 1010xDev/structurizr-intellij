@@ -11,7 +11,13 @@ public interface StructurizrDslFontStatement extends PsiElement {
   StructurizrDslAName getAName();
 
   @Nullable
+  StructurizrDslBoolean getBoolean();
+
+  @Nullable
   PsiElement getColor();
+
+  @Nullable
+  PsiElement getInterpolatedText();
 
   @Nullable
   PsiElement getQuotedText();

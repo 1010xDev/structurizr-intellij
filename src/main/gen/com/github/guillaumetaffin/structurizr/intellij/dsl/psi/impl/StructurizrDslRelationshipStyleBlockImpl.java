@@ -47,6 +47,12 @@ public class StructurizrDslRelationshipStyleBlockImpl extends ASTWrapperPsiEleme
 
   @Override
   @NotNull
+  public List<StructurizrDslDashedStatement> getDashedStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslDashedStatement.class);
+  }
+
+  @Override
+  @NotNull
   public List<StructurizrDslFontSizeStatement> getFontSizeStatementList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslFontSizeStatement.class);
   }

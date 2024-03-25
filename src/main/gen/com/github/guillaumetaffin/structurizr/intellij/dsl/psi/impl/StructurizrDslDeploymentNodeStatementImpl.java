@@ -40,6 +40,12 @@ public class StructurizrDslDeploymentNodeStatementImpl extends ASTWrapperPsiElem
   }
 
   @Override
+  @NotNull
+  public List<StructurizrDslBoolean> getBooleanList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslBoolean.class);
+  }
+
+  @Override
   @Nullable
   public StructurizrDslDeploymentNodeBlock getDeploymentNodeBlock() {
     return findChildByClass(StructurizrDslDeploymentNodeBlock.class);

@@ -36,6 +36,12 @@ public class StructurizrDslDeploymentViewStatementImpl extends ASTWrapperPsiElem
 
   @Override
   @Nullable
+  public StructurizrDslBoolean getBoolean() {
+    return findChildByClass(StructurizrDslBoolean.class);
+  }
+
+  @Override
+  @Nullable
   public StructurizrDslCommonViewBlock getCommonViewBlock() {
     return findChildByClass(StructurizrDslCommonViewBlock.class);
   }
@@ -56,6 +62,12 @@ public class StructurizrDslDeploymentViewStatementImpl extends ASTWrapperPsiElem
   @Nullable
   public PsiElement getColor() {
     return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInterpolatedText() {
+    return findChildByType(INTERPOLATED_TEXT);
   }
 
   @Override

@@ -42,6 +42,12 @@ public class StructurizrDslInfrastructureNodeStatementImpl extends ASTWrapperPsi
 
   @Override
   @Nullable
+  public StructurizrDslBoolean getBoolean() {
+    return findChildByClass(StructurizrDslBoolean.class);
+  }
+
+  @Override
+  @Nullable
   public StructurizrDslInfrastructureNodeBlock getInfrastructureNodeBlock() {
     return findChildByClass(StructurizrDslInfrastructureNodeBlock.class);
   }
@@ -56,6 +62,12 @@ public class StructurizrDslInfrastructureNodeStatementImpl extends ASTWrapperPsi
   @Nullable
   public PsiElement getColor() {
     return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInterpolatedText() {
+    return findChildByType(INTERPOLATED_TEXT);
   }
 
   @Override

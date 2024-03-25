@@ -111,6 +111,8 @@ class Logo : StructurizrKeyword("logo")
 class Terminology : StructurizrKeyword("terminology")
 class Extend : StructurizrKeyword("!extend")
 class Ref : StructurizrKeyword("!ref")
+class ImpliedRelationships : StructurizrKeyword("!impliedRelationships")
+class BangInclude : StructurizrKeyword("!include")
 
 sealed class StructurizrParens(display: String) : StructurizrDslToken(display)
 class OpenParens : StructurizrParens("{")
@@ -122,6 +124,7 @@ class Equal : StructurizrOperator("=")
 sealed class StructurizrText(display: String) : StructurizrDslToken(display)
 class UnquotedText : StructurizrText("text")
 class QuotedText : StructurizrText("\"text\"")
+class InterpolatedText : StructurizrText("\${REF}")
 
 class LineBreak : StructurizrDslToken("EOL(s)")
 
@@ -430,6 +433,12 @@ data object Tokens {
     val REF = Ref()
 
     @JvmField
+    val IMPLIED_RELATIONSHIPS = ImpliedRelationships()
+
+    @JvmField
+    val BANG_INCLUDE = BangInclude()
+
+    @JvmField
     val EQ = Equal()
 
     @JvmField
@@ -446,4 +455,7 @@ data object Tokens {
 
     @JvmField
     val QUOTED_TEXT = QuotedText()
+
+    @JvmField
+    val INTERPOLATED_TEXT = InterpolatedText()
 }

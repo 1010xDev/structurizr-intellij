@@ -121,6 +121,8 @@
     TERMINOLOGY="terminology"
     EXTEND="!extend"
     REF="!ref"
+    IMPLIED_RELATIONSHIPS="!impliedRelationships"
+    BANG_INCLUDE="!include"
 
     EQ="="
 
@@ -128,6 +130,7 @@
     CLOSE_PARENS="}"
 
     QUOTED_TEXT='regexp:\"[^\"\r\n]*\"?'
+    INTERPOLATED_TEXT='regexp:\$\{[^\s\"\r\n{=]+}'
     UNQUOTED_TEXT='regexp:[^\s\"\r\n{=]+'
 
     LINE_BREAK="regexp:[\n\r]"
@@ -136,13 +139,36 @@
   ]
 }
 
-structurizrFile ::= top_level_statements*
+structurizrFile ::= LINE_BREAK* top_level_statement? LINE_BREAK*
 
-private top_level_statements ::= workspace_statement
+private top_level_statement ::= workspace_statement
+ | workspace_block_statement+
+ | model_block_statement+
+ | element_block_statement+
+ | deployment_environment_block_statement+
+ | deployment_node_block_statement+
+ | infrastructure_node_block_statement+
+ | software_system_instance_block_statement+
+ | container_instance_block_statement+
+ | person_block_statement+
+ | software_system_block_statement+
+ | container_block_statement+
+ | component_block_statement+
+ | views_block_statement+
+ | branding_block_statement+
+ | terminology_block_statement+
+ | filtered_view_block_statement+
+ | dynamic_view_block_statement+
+ | image_view_block_statement+
+ | system_landscape_view_block_statement+
+ | styles_block_statement+
+ | element_style_block_statement+
+ | relationship_style_block_statement+
 
 workspace_statement ::= workspace_definition opening_block workspace_block_statement*  closing_block
-workspace_definition ::= WORKSPACE ( a_name a_description? | "extends" any_text )?
+workspace_definition ::= 'workspace' ( a_name a_description? | "extends" any_text )?
 private workspace_block_statement ::= name_statement
+ | implied_relationships_statement
  | description_statement
  | properties_statement
  | identifiers_statement
@@ -152,6 +178,7 @@ private workspace_block_statement ::= name_statement
  | views_statement
  | configuration_statement
 
+implied_relationships_statement ::= '!impliedRelationships' boolean LINE_BREAK+
 name_statement ::= "name" any_text LINE_BREAK+
 description_statement ::= "description" any_text LINE_BREAK+
 properties_statement ::= "properties" opening_block property_statement* closing_block
@@ -164,6 +191,7 @@ url_statement ::= 'url' any_text LINE_BREAK+
 perspectives_statement ::= "perspectives" opening_block perspective_statement* closing_block
 perspective_statement ::= any_text any_text any_text? LINE_BREAK+
 technology_statement ::= 'technology' any_text LINE_BREAK+
+inline_include_statement ::= '!include' any_text LINE_BREAK+
 
 extend_statement ::= (id '=')? ('!extend' | '!ref') id (extend_block | LINE_BREAK+)
 extend_block ::= opening_block (
@@ -182,10 +210,11 @@ private model_block_statement ::= person_statement
  | deployment_environment_statement
  | <<group_statements model_block_statement>>
  | extend_statement
+ | inline_include_statement
 
 element_statement ::= 'element' a_name any_text? a_description? tag? (element_block | LINE_BREAK+)
 element_block ::= opening_block element_block_statement* closing_block
-element_block_statement ::= description_statement
+private element_block_statement ::= description_statement
  | tags_statement
  | url_statement
  | properties_statement
@@ -311,7 +340,7 @@ private relation_block_statements ::= tags_statement | url_statement | propertie
 
 views_statement ::= "views" views_block
 views_block ::= opening_block views_block_statement* closing_block
-views_block_statement ::= system_landscape_view_statement
+private views_block_statement ::= system_landscape_view_statement
  | system_context_view_statement
  | container_view_statement
  | component_view_statement
@@ -326,15 +355,14 @@ views_block_statement ::= system_landscape_view_statement
  | branding_statement
  | terminology_statement
  | properties_statement
+ | inline_include_statement
 
 theme_statement ::= 'theme' ('default' | any_text) LINE_BREAK+
 themes_statement ::= 'themes' any_text+ LINE_BREAK+
 
 branding_statement ::= 'branding' branding_block
-branding_block ::= opening_block (
-logo_statement
- | font_statement
-)+ closing_block
+branding_block ::= opening_block branding_block_statement+ closing_block
+private branding_block_statement ::= logo_statement | font_statement
 
 terminology_statement ::= 'terminology' terminology_block
 terminology_block ::= opening_block terminology_block_statement* closing_block
@@ -358,10 +386,12 @@ container_view_statement ::= 'container' id view_key? a_description? (common_vie
 component_view_statement ::= 'component' id view_key? a_description? (common_view_block | LINE_BREAK+)
 
 filtered_view_statement ::= 'filtered' view_key ('include' | 'exclude') tag view_key? a_description? (filtered_view_block | LINE_BREAK+)
-filtered_view_block ::= opening_block (default_statement | title_statement | description_statement | properties_statement)* closing_block
+filtered_view_block ::= opening_block filtered_view_block_statement* closing_block
+private filtered_view_block_statement ::= default_statement | title_statement | description_statement | properties_statement
 
 dynamic_view_statement ::= 'dynamic' ('*' | id) view_key? a_description? (dynamic_view_block | LINE_BREAK+)
-dynamic_view_block ::= opening_block (relation_statement | autolayout_statement | default_statement | title_statement | description_statement | properties_statement)* closing_block
+dynamic_view_block ::= opening_block dynamic_view_block_statement* closing_block
+private dynamic_view_block_statement ::= relation_statement | autolayout_statement | default_statement | title_statement | description_statement | properties_statement
 
 deployment_view_statement ::= 'deployment' ('*' | id) any_text view_key? a_description? (common_view_block | LINE_BREAK+)
 
@@ -389,9 +419,11 @@ private system_landscape_view_block_statement ::= include_statement
  | properties_statement
 
 styles_statement ::= 'styles' styles_block
-styles_block ::= opening_block (element_style | relationship_style)* closing_block
+styles_block ::= opening_block styles_block_statement* closing_block
+private styles_block_statement ::= element_style | relationship_style
 
-element_style ::= 'element' tag opening_block ( shape_statement
+element_style ::= 'element' tag opening_block element_style_block_statement* closing_block
+private  element_style_block_statement ::= shape_statement
  | icon_statement
  | width_statement
  | height_statement
@@ -404,9 +436,8 @@ element_style ::= 'element' tag opening_block ( shape_statement
  | opacity_statement
  | metadata_statement
  | properties_statement
-)* closing_block
 
-metadata_statement ::= 'metadata' ('true' | 'false') LINE_BREAK+
+metadata_statement ::= 'metadata' boolean LINE_BREAK+
 opacity_statement ::= 'opacity' any_text LINE_BREAK+
 border_statement ::= 'border' ('solid' | 'dashed' | 'dotted') LINE_BREAK+
 font_size_statement ::= 'fontSize' any_text LINE_BREAK+
@@ -419,7 +450,7 @@ icon_statement ::= 'icon' any_text LINE_BREAK+
 shape_statement ::= 'shape' shape LINE_BREAK+
 color_statement ::= COLOR any_text LINE_BREAK+
 
-private shape ::= 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
+private shape ::= 'person' | 'Box'|'RoundedBox'|'Circle'|'Ellipse'|'Hexagon'|'Cylinder'|'Pipe'|'Person'|'Robot'|'Folder'|'WebBrowser'|'MobileDevicePortrait'|'MobileDeviceLandscape'|'Component'
 
 relationship_style ::= 'relationship' tag (relationship_style_block | LINE_BREAK+)
 relationship_style_block ::= opening_block relationship_style_block_statement* closing_block
@@ -432,15 +463,17 @@ thickness_statement
  | width_statement
  | position_statement
  | opacity_statement
+ | dashed_statement
  | properties_statement
 )
 
+dashed_statement ::= 'dashed' boolean LINE_BREAK+
 position_statement ::= 'position' any_text LINE_BREAK+
 routing_statement ::= 'routing' ('Direct' | 'Orthogonal' | 'Curved') LINE_BREAK+
 thickness_statement ::= 'thickness' any_text LINE_BREAK+
 
 include_statement ::= include_element_statement | include_relationship_statement
-include_element_statement ::= 'include' ('*' | id | any_text)+ LINE_BREAK+
+include_element_statement ::= ('include') ('*' | id | any_text)+ LINE_BREAK+
 include_relationship_statement ::= 'include' (id | any_text)+ LINE_BREAK+
 
 exclude_statement ::= 'exclude' (id | any_text)+ LINE_BREAK+
@@ -459,7 +492,7 @@ view_key ::= any_text
 configuration_statement ::= "configuration" opening_block closing_block
 
 id ::= any_text
-private any_text ::= UNQUOTED_TEXT | QUOTED_TEXT| any_keyword
+private any_text ::= INTERPOLATED_TEXT | UNQUOTED_TEXT | QUOTED_TEXT | any_keyword
 private any_keyword ::= "workspace"
  | "model"
  | "softwareSystem"
@@ -526,8 +559,7 @@ private any_keyword ::= "workspace"
  | "dotted"
  | "opacity"
  | "metadata"
- | "true"
- | "false"
+ | boolean
  | "position"
  | "routing"
  | "Direct"
@@ -549,6 +581,7 @@ closing_block ::= "}" (LINE_BREAK+ | <<eof>>)
 a_name ::= any_text
 a_description ::= any_text
 tag ::= any_text
+boolean ::= 'true' | 'false'
 
 // META RULES
 private meta taggable_element_definition ::= (id "=")? <<keyword>> a_name a_description? tag?

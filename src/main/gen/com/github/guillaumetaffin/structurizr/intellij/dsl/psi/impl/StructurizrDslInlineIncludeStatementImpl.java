@@ -12,14 +12,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.*;
 import static com.github.guillaumetaffin.structurizr.intellij.dsl.psi.Tokens.*;
 
-public class StructurizrDslFontSizeStatementImpl extends ASTWrapperPsiElement implements StructurizrDslFontSizeStatement {
+public class StructurizrDslInlineIncludeStatementImpl extends ASTWrapperPsiElement implements StructurizrDslInlineIncludeStatement {
 
-  public StructurizrDslFontSizeStatementImpl(@NotNull ASTNode node) {
+  public StructurizrDslInlineIncludeStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull StructurizrDslVisitor visitor) {
-    visitor.visitFontSizeStatement(this);
+    visitor.visitInlineIncludeStatement(this);
   }
 
   @Override

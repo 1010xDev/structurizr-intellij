@@ -29,6 +29,12 @@ public class StructurizrDslGroupStatementsImpl extends ASTWrapperPsiElement impl
   }
 
   @Override
+  @Nullable
+  public StructurizrDslBoolean getBoolean() {
+    return findChildByClass(StructurizrDslBoolean.class);
+  }
+
+  @Override
   @NotNull
   public StructurizrDslClosingBlock getClosingBlock() {
     return findNotNullChildByClass(StructurizrDslClosingBlock.class);
@@ -44,6 +50,12 @@ public class StructurizrDslGroupStatementsImpl extends ASTWrapperPsiElement impl
   @Nullable
   public PsiElement getColor() {
     return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInterpolatedText() {
+    return findChildByType(INTERPOLATED_TEXT);
   }
 
   @Override

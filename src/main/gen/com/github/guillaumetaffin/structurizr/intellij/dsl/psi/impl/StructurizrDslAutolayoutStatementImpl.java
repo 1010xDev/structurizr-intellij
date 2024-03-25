@@ -27,4 +27,10 @@ public class StructurizrDslAutolayoutStatementImpl extends ASTWrapperPsiElement 
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<StructurizrDslBoolean> getBooleanList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslBoolean.class);
+  }
+
 }

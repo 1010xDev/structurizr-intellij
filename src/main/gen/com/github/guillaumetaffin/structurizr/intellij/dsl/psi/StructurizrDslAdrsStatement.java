@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface StructurizrDslAdrsStatement extends PsiElement {
 
+  @NotNull
+  List<StructurizrDslBoolean> getBooleanList();
+
 }

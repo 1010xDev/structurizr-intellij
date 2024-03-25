@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface StructurizrDslIncludeElementStatement extends PsiElement {
 
   @NotNull
+  List<StructurizrDslBoolean> getBooleanList();
+
+  @NotNull
   List<StructurizrDslId> getIdList();
 
 }

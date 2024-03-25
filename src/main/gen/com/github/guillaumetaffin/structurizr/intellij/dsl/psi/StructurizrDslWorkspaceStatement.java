@@ -26,6 +26,9 @@ public interface StructurizrDslWorkspaceStatement extends PsiElement {
   List<StructurizrDslIdentifiersStatement> getIdentifiersStatementList();
 
   @NotNull
+  List<StructurizrDslImpliedRelationshipsStatement> getImpliedRelationshipsStatementList();
+
+  @NotNull
   List<StructurizrDslModelStatement> getModelStatementList();
 
   @NotNull

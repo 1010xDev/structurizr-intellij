@@ -5,19 +5,10 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface StructurizrDslCustomViewStatement extends PsiElement {
-
-  @Nullable
-  StructurizrDslADescription getADescription();
+public interface StructurizrDslInlineIncludeStatement extends PsiElement {
 
   @Nullable
   StructurizrDslBoolean getBoolean();
-
-  @Nullable
-  StructurizrDslCommonViewBlock getCommonViewBlock();
-
-  @Nullable
-  StructurizrDslViewKey getViewKey();
 
   @Nullable
   PsiElement getColor();

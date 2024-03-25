@@ -14,6 +14,9 @@ public interface StructurizrDslElementStatement extends PsiElement {
   StructurizrDslAName getAName();
 
   @Nullable
+  StructurizrDslBoolean getBoolean();
+
+  @Nullable
   StructurizrDslElementBlock getElementBlock();
 
   @Nullable
@@ -21,6 +24,9 @@ public interface StructurizrDslElementStatement extends PsiElement {
 
   @Nullable
   PsiElement getColor();
+
+  @Nullable
+  PsiElement getInterpolatedText();
 
   @Nullable
   PsiElement getQuotedText();
