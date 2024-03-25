@@ -27,4 +27,10 @@ public class StructurizrDslMetadataStatementImpl extends ASTWrapperPsiElement im
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public StructurizrDslBoolean getBoolean() {
+    return findNotNullChildByClass(StructurizrDslBoolean.class);
+  }
+
 }

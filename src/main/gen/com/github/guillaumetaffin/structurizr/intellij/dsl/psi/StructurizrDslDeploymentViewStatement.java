@@ -11,6 +11,9 @@ public interface StructurizrDslDeploymentViewStatement extends PsiElement {
   StructurizrDslADescription getADescription();
 
   @Nullable
+  StructurizrDslBoolean getBoolean();
+
+  @Nullable
   StructurizrDslCommonViewBlock getCommonViewBlock();
 
   @Nullable
@@ -21,6 +24,9 @@ public interface StructurizrDslDeploymentViewStatement extends PsiElement {
 
   @Nullable
   PsiElement getColor();
+
+  @Nullable
+  PsiElement getInterpolatedText();
 
   @Nullable
   PsiElement getQuotedText();

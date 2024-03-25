@@ -11,32 +11,20 @@ import static com.github.guillaumetaffin.structurizr.intellij.dsl.psi.Structuriz
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.*;
 
-public class StructurizrDslExcludeStatementImpl extends ASTWrapperPsiElement implements StructurizrDslExcludeStatement {
+public class StructurizrDslBooleanImpl extends ASTWrapperPsiElement implements StructurizrDslBoolean {
 
-  public StructurizrDslExcludeStatementImpl(@NotNull ASTNode node) {
+  public StructurizrDslBooleanImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull StructurizrDslVisitor visitor) {
-    visitor.visitExcludeStatement(this);
+    visitor.visitBoolean(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof StructurizrDslVisitor) accept((StructurizrDslVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<StructurizrDslBoolean> getBooleanList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslBoolean.class);
-  }
-
-  @Override
-  @NotNull
-  public List<StructurizrDslId> getIdList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslId.class);
   }
 
 }

@@ -30,6 +30,18 @@ public class StructurizrDslColorStatementImpl extends ASTWrapperPsiElement imple
 
   @Override
   @Nullable
+  public StructurizrDslBoolean getBoolean() {
+    return findChildByClass(StructurizrDslBoolean.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInterpolatedText() {
+    return findChildByType(INTERPOLATED_TEXT);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getQuotedText() {
     return findChildByType(QUOTED_TEXT);
   }

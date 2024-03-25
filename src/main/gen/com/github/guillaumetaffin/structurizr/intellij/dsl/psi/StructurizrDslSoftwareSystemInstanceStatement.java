@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface StructurizrDslSoftwareSystemInstanceStatement extends PsiElement {
 
+  @Nullable
+  StructurizrDslBoolean getBoolean();
+
   @NotNull
   StructurizrDslId getId();
 
@@ -18,6 +21,9 @@ public interface StructurizrDslSoftwareSystemInstanceStatement extends PsiElemen
 
   @Nullable
   PsiElement getColor();
+
+  @Nullable
+  PsiElement getInterpolatedText();
 
   @Nullable
   PsiElement getQuotedText();

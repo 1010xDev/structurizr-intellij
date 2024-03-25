@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface StructurizrDslTagsStatement extends PsiElement {
-
-  @NotNull
-  List<StructurizrDslBoolean> getBooleanList();
+public interface StructurizrDslBoolean extends PsiElement {
 
 }

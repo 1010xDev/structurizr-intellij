@@ -22,6 +22,7 @@ LINE_BREAK=[\n\r]
 
 QUOTED_TEXT=\"[^\"\r\n]*\"?
 UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
+INTERPOLATED_TEXT=\$\{[^\s\"\r\n\{\=]+\}
 
 %%
 <YYINITIAL> {
@@ -127,6 +128,8 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "terminology"                { return Tokens.TERMINOLOGY; }
   "!extend"                    { return Tokens.EXTEND; }
   "!ref"                       { return Tokens.REF; }
+  "!impliedRelationships"      { return Tokens.IMPLIED_RELATIONSHIPS; }
+  "!include"                   { return Tokens.BANG_INCLUDE; }
 
   "{"                          { return Tokens.OPEN_PARENS; }
   "}"                          { return Tokens.CLOSE_PARENS; }
@@ -134,6 +137,7 @@ UNQUOTED_TEXT=[^\s\"\r\n\{\=]+
   "="                          { return Tokens.EQ; }
 
   {QUOTED_TEXT}                { return Tokens.QUOTED_TEXT; }
+  {INTERPOLATED_TEXT}          { return Tokens.INTERPOLATED_TEXT; }
   {UNQUOTED_TEXT}              { return Tokens.UNQUOTED_TEXT; }
 
   {HORIZONTAL_WHITESPACE}      { return WHITE_SPACE; }

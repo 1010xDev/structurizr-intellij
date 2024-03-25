@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface StructurizrDslGroupStatements extends PsiElement {
 
+  @Nullable
+  StructurizrDslBoolean getBoolean();
+
   @NotNull
   StructurizrDslClosingBlock getClosingBlock();
 
@@ -15,6 +18,9 @@ public interface StructurizrDslGroupStatements extends PsiElement {
 
   @Nullable
   PsiElement getColor();
+
+  @Nullable
+  PsiElement getInterpolatedText();
 
   @Nullable
   PsiElement getQuotedText();

@@ -29,6 +29,12 @@ public class StructurizrDslIncludeElementStatementImpl extends ASTWrapperPsiElem
 
   @Override
   @NotNull
+  public List<StructurizrDslBoolean> getBooleanList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslBoolean.class);
+  }
+
+  @Override
+  @NotNull
   public List<StructurizrDslId> getIdList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslId.class);
   }

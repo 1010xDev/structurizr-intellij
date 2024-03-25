@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface StructurizrDslImageViewBlock extends PsiElement {
 
   @NotNull
+  List<StructurizrDslBoolean> getBooleanList();
+
+  @NotNull
   StructurizrDslClosingBlock getClosingBlock();
 
   @NotNull

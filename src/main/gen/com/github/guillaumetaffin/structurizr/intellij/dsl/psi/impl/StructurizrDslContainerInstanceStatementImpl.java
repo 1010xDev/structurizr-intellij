@@ -30,6 +30,12 @@ public class StructurizrDslContainerInstanceStatementImpl extends ASTWrapperPsiE
 
   @Override
   @Nullable
+  public StructurizrDslBoolean getBoolean() {
+    return findChildByClass(StructurizrDslBoolean.class);
+  }
+
+  @Override
+  @Nullable
   public StructurizrDslContainerInstanceBlock getContainerInstanceBlock() {
     return findChildByClass(StructurizrDslContainerInstanceBlock.class);
   }
@@ -50,6 +56,12 @@ public class StructurizrDslContainerInstanceStatementImpl extends ASTWrapperPsiE
   @Nullable
   public PsiElement getColor() {
     return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInterpolatedText() {
+    return findChildByType(INTERPOLATED_TEXT);
   }
 
   @Override

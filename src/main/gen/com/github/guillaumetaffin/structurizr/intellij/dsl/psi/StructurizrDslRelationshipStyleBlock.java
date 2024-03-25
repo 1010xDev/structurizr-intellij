@@ -17,6 +17,9 @@ public interface StructurizrDslRelationshipStyleBlock extends PsiElement {
   List<StructurizrDslColorStatement> getColorStatementList();
 
   @NotNull
+  List<StructurizrDslDashedStatement> getDashedStatementList();
+
+  @NotNull
   List<StructurizrDslFontSizeStatement> getFontSizeStatementList();
 
   @NotNull

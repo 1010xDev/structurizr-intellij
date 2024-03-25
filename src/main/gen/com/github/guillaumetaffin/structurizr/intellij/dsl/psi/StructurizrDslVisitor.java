@@ -35,6 +35,10 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBoolean(@NotNull StructurizrDslBoolean o) {
+    visitPsiElement(o);
+  }
+
   public void visitBorderStatement(@NotNull StructurizrDslBorderStatement o) {
     visitPsiElement(o);
   }
@@ -99,6 +103,10 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDashedStatement(@NotNull StructurizrDslDashedStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitDefaultStatement(@NotNull StructurizrDslDefaultStatement o) {
     visitPsiElement(o);
   }
@@ -144,10 +152,6 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
   }
 
   public void visitElementBlock(@NotNull StructurizrDslElementBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitElementBlockStatement(@NotNull StructurizrDslElementBlockStatement o) {
     visitPsiElement(o);
   }
 
@@ -219,6 +223,10 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitImpliedRelationshipsStatement(@NotNull StructurizrDslImpliedRelationshipsStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitIncludeElementStatement(@NotNull StructurizrDslIncludeElementStatement o) {
     visitPsiElement(o);
   }
@@ -236,6 +244,10 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
   }
 
   public void visitInfrastructureNodeStatement(@NotNull StructurizrDslInfrastructureNodeStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitInlineIncludeStatement(@NotNull StructurizrDslInlineIncludeStatement o) {
     visitPsiElement(o);
   }
 
@@ -412,10 +424,6 @@ public class StructurizrDslVisitor extends PsiElementVisitor {
   }
 
   public void visitViewsBlock(@NotNull StructurizrDslViewsBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitViewsBlockStatement(@NotNull StructurizrDslViewsBlockStatement o) {
     visitPsiElement(o);
   }
 

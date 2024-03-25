@@ -29,6 +29,12 @@ public class StructurizrDslSoftwareSystemInstanceStatementImpl extends ASTWrappe
   }
 
   @Override
+  @Nullable
+  public StructurizrDslBoolean getBoolean() {
+    return findChildByClass(StructurizrDslBoolean.class);
+  }
+
+  @Override
   @NotNull
   public StructurizrDslId getId() {
     return findNotNullChildByClass(StructurizrDslId.class);
@@ -50,6 +56,12 @@ public class StructurizrDslSoftwareSystemInstanceStatementImpl extends ASTWrappe
   @Nullable
   public PsiElement getColor() {
     return findChildByType(COLOR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInterpolatedText() {
+    return findChildByType(INTERPOLATED_TEXT);
   }
 
   @Override

@@ -33,4 +33,10 @@ public class StructurizrDslHealthCheckStatementImpl extends ASTWrapperPsiElement
     return findNotNullChildByClass(StructurizrDslAName.class);
   }
 
+  @Override
+  @NotNull
+  public List<StructurizrDslBoolean> getBooleanList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslBoolean.class);
+  }
+
 }

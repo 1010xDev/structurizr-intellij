@@ -10,16 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.github.guillaumetaffin.structurizr.intellij.dsl.psi.StructurizrDslTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.github.guillaumetaffin.structurizr.intellij.dsl.psi.*;
-import static com.github.guillaumetaffin.structurizr.intellij.dsl.psi.Tokens.*;
 
-public class StructurizrDslFontSizeStatementImpl extends ASTWrapperPsiElement implements StructurizrDslFontSizeStatement {
+public class StructurizrDslImpliedRelationshipsStatementImpl extends ASTWrapperPsiElement implements StructurizrDslImpliedRelationshipsStatement {
 
-  public StructurizrDslFontSizeStatementImpl(@NotNull ASTNode node) {
+  public StructurizrDslImpliedRelationshipsStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull StructurizrDslVisitor visitor) {
-    visitor.visitFontSizeStatement(this);
+    visitor.visitImpliedRelationshipsStatement(this);
   }
 
   @Override
@@ -29,33 +28,9 @@ public class StructurizrDslFontSizeStatementImpl extends ASTWrapperPsiElement im
   }
 
   @Override
-  @Nullable
+  @NotNull
   public StructurizrDslBoolean getBoolean() {
-    return findChildByClass(StructurizrDslBoolean.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getColor() {
-    return findChildByType(COLOR);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getInterpolatedText() {
-    return findChildByType(INTERPOLATED_TEXT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getQuotedText() {
-    return findChildByType(QUOTED_TEXT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getUnquotedText() {
-    return findChildByType(UNQUOTED_TEXT);
+    return findNotNullChildByClass(StructurizrDslBoolean.class);
   }
 
 }

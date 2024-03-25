@@ -10,4 +10,7 @@ public interface StructurizrDslHealthCheckStatement extends PsiElement {
   @NotNull
   StructurizrDslAName getAName();
 
+  @NotNull
+  List<StructurizrDslBoolean> getBooleanList();
+
 }

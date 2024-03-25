@@ -11,6 +11,9 @@ public interface StructurizrDslRhsRelationStatement extends PsiElement {
   StructurizrDslADescription getADescription();
 
   @Nullable
+  StructurizrDslBoolean getBoolean();
+
+  @Nullable
   StructurizrDslId getId();
 
   @Nullable
@@ -18,6 +21,9 @@ public interface StructurizrDslRhsRelationStatement extends PsiElement {
 
   @Nullable
   PsiElement getColor();
+
+  @Nullable
+  PsiElement getInterpolatedText();
 
   @Nullable
   PsiElement getQuotedText();

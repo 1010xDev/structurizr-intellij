@@ -35,14 +35,44 @@ public class StructurizrDslElementBlockImpl extends ASTWrapperPsiElement impleme
 
   @Override
   @NotNull
-  public List<StructurizrDslElementBlockStatement> getElementBlockStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslElementBlockStatement.class);
+  public List<StructurizrDslDescriptionStatement> getDescriptionStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslDescriptionStatement.class);
   }
 
   @Override
   @NotNull
   public StructurizrDslOpeningBlock getOpeningBlock() {
     return findNotNullChildByClass(StructurizrDslOpeningBlock.class);
+  }
+
+  @Override
+  @NotNull
+  public List<StructurizrDslPerspectivesStatement> getPerspectivesStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslPerspectivesStatement.class);
+  }
+
+  @Override
+  @NotNull
+  public List<StructurizrDslPropertiesStatement> getPropertiesStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslPropertiesStatement.class);
+  }
+
+  @Override
+  @NotNull
+  public List<StructurizrDslRelationStatement> getRelationStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslRelationStatement.class);
+  }
+
+  @Override
+  @NotNull
+  public List<StructurizrDslTagsStatement> getTagsStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslTagsStatement.class);
+  }
+
+  @Override
+  @NotNull
+  public List<StructurizrDslUrlStatement> getUrlStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, StructurizrDslUrlStatement.class);
   }
 
 }

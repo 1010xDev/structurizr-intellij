@@ -13,6 +13,9 @@ public interface StructurizrDslDeploymentNodeStatement extends PsiElement {
   @NotNull
   StructurizrDslAName getAName();
 
+  @NotNull
+  List<StructurizrDslBoolean> getBooleanList();
+
   @Nullable
   StructurizrDslDeploymentNodeBlock getDeploymentNodeBlock();
 
